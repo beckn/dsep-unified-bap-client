@@ -1,10 +1,15 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
+import { jobSearchController } from "./JobsFlow/controller";
 
 dotenv.config();
 
-const app: Express = express();
-const port = process.env.PORT || 3000;
+export const app: Express = express();
+const port = process.env.PORT || 3006;
+
+const router = (express.Router());
+app.use('/jobs', jobSearchController)
+app.use(router);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("dsep unified bap client is working");
