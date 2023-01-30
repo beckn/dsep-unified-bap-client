@@ -16,9 +16,14 @@ exports.getJob = void 0;
 const axios_1 = __importDefault(require("axios"));
 function getJob(jobDTO) {
     return __awaiter(this, void 0, void 0, function* () {
-        const result = yield axios_1.default.post('https://45e6-103-154-203-92.in.ngrok.io ', jobDTO);
-        console.log("Response>>", result.data);
-        return result.data;
+        try {
+            const result = yield axios_1.default.post('https://gateway.becknprotocol.io/bg/search', jobDTO);
+            console.log(">>Response", result);
+            return result.data;
+        }
+        catch (error) {
+            console.error(error);
+        }
     });
 }
 exports.getJob = getJob;

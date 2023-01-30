@@ -1,4 +1,4 @@
-export interface JobDTO{
+export interface JobRequestDto{
     "context": JobContextDTO,
 
     "message": {
@@ -12,7 +12,7 @@ export interface JobDTO{
     }
 }
 
-export interface JobContextDTO{
+export interface JobContextDTO {
     "domain": String,
     "country": String,
     "city": String,
@@ -24,3 +24,5 @@ export interface JobContextDTO{
     "message_id": String,
     "timestamp": String
 }
+
+

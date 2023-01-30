@@ -1,20 +1,21 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.JobDTO = void 0;
-class JobDTO {
-    static toJobResponse(data) {
+import { JobRequestDto } from './job.interface'
+
+export class JobDTO {
+    // static toJobResponse(data: any): JobResponseDto {
+    static toJobResponse(data: any)  {
         return {
             id: 'some ID',
             custom_status: data.message.ack.status,
         };
     }
-    static toJobRequest(data) {
+
+    static toJobRequest(data: any): JobRequestDto {
         let request = {
             context: {
                 country: "custom country",
                 domain: "custom domain",
                 city: "custom city",
-                action: "custom actioni",
+                action: "custom action",
                 core_version: "custom version",
                 bap_id: "custom bap_id",
                 transaction_id: "custom transaction_id",
@@ -32,20 +33,21 @@ class JobDTO {
                 }
             }
         };
+        
         /**
          *
          * if (data.provider_name){
          *  req.context.provider = data.provider_name
          * }
-         *
-         *
+         * 
+         * 
          * if (data.gender){
          *  req.message.intent.item.desc...gender = data.gender
          * }
          *
-         *
+         * 
          */
+
         return request;
     }
 }
-exports.JobDTO = JobDTO;

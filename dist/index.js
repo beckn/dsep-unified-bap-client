@@ -11,8 +11,9 @@ dotenv_1.default.config();
 exports.app = (0, express_1.default)();
 const port = process.env.PORT || 3006;
 const router = (express_1.default.Router());
-exports.app.use('/jobs', controller_1.jobSearchController);
 exports.app.use(router);
+exports.app.use(express_1.default.json());
+exports.app.use('/jobs', controller_1.jobSearchController);
 exports.app.get("/", (req, res) => {
     res.send("dsep unified bap client is working");
 });

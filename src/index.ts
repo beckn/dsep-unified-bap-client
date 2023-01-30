@@ -8,8 +8,9 @@ export const app: Express = express();
 const port = process.env.PORT || 3006;
 
 const router = (express.Router());
-app.use('/jobs', jobSearchController)
 app.use(router);
+app.use(express.json())
+app.use('/jobs', jobSearchController)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("dsep unified bap client is working");
