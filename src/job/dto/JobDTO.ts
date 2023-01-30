@@ -5,11 +5,12 @@ export class JobDTO {
     static toJobResponse(data: any)  {
         return {
             id: 'some ID',
-            custom_status: data.message.ack.status,
+            // custom_status: data.message.ack.status,
+            custom_status:"202"
         };
     }
 
-    static toJobRequest(data: any): JobRequestDto {
+    static toJobRequest(data: any) {
         let request = {
             context: {
                 country: "custom country",

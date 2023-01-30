@@ -1,11 +1,11 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { jobSearchController } from "./JobsFlow/controller";
+import { jobSearchController } from "./job/controller";
 
 dotenv.config();
 
 export const app: Express = express();
-const port = process.env.PORT || 3006;
+const port = process.env.PORT || 4005;
 
 const router = (express.Router());
 app.use(router);
