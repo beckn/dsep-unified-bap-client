@@ -1,17 +1,3 @@
-export interface MentorRequestDto{
-    "context": MentorContextDTO,
-
-    "message": {
-        "intent": {
-            "item": {
-                "descriptor": {
-                    "name": String
-                }
-            }
-        }
-    }
-}
-
 export interface MentorContextDTO {
     "domain": String,
     "country": String,
@@ -26,3 +12,82 @@ export interface MentorContextDTO {
     "transaction_id": String
 }
 
+//Search
+export interface MentorSearchRequestDto{
+    "context": MentorContextDTO,
+    "message": {
+        "intent": {
+            "item": {
+                "descriptor": {
+                    "name": String
+                }
+            }
+        }
+    }
+}
+
+//Init
+export interface MentorInitRequestDto{
+    "context": MentorContextDTO,
+    "message": {
+        "order": {
+            "items": [
+                {
+                    "id": String
+                }
+            ],
+            "fulfillments": [
+                {
+                    "id": String
+                }
+            ],
+            "billing": {
+                "name": String,
+                "phone": String,
+                "email": String,
+                "time": {
+                    "timezone": String
+                }
+            }
+        }
+    }
+}
+
+//Select
+export interface MentorSelectRequestDto{
+    "context": MentorContextDTO,
+    "message": {
+        "order": {
+            "item": {
+                "id": String
+            }
+        }
+    }
+}
+
+//Confirm
+export interface MentorConfirmRequestDto{
+    "context": MentorContextDTO,
+    "message": {
+        "order": {
+            "items": [
+                {
+                    "id": String
+                }
+            ],
+            "fulfillments": [
+                {
+                    "id": String
+                }
+            ],
+            "billing": {
+                "name": String,
+                "phone": String,
+                "email": String,
+                "time": {
+                    "timezone": String
+                }
+            }
+        }
+    }
+}

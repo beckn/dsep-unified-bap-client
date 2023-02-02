@@ -12,16 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.jobSearchController = void 0;
 const services_1 = require("./services");
 const jobSearchController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log(">>req.body::",req.body)
-    // const mappedRequest = JobDTO.toJobRequest(req.body)
-    // console.log(">>req MappedReq ::",mappedRequest)
     const response = yield (0, services_1.getJob)(req.body);
-    // console.log(">>resp  mappedReq ::",response)
-    // get ACK URL and hit on_{api_call} again.
-    // before hitting, mappedRequest.transaction_id = {transaction_id}
-    // const response = await getOnSearch(api_url, mappedRequest);
-    // 
-    // const mappedResponse = JobDTO.toJobResponse(response)
+    console.log(">>Response from protocol server::", response);
     res.send(response);
 });
 exports.jobSearchController = jobSearchController;

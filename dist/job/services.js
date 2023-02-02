@@ -14,12 +14,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getJob = void 0;
 const axios_1 = __importDefault(require("axios"));
-// export async function getJob(jobDTO: JobRequestDto): Promise<any> {
 function getJob(jobDTO) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const result = yield axios_1.default.post('http://localhost:3000/search', jobDTO);
-            // console.log(">>Response",result)
+            const result = yield axios_1.default.post('https://65b6-103-154-203-92.in.ngrok.io', jobDTO);
+            console.log(">>Response", result);
             return result;
         }
         catch (error) {
