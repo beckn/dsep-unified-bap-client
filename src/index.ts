@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { jobSearchController } from "./job/controller";
 import { mentorSearchController, mentorInitController, mentorSelectController, mentorConfirmController} from "./mentor/controller";
+import {userInfo} from "./user/controller"
 
 dotenv.config();
 
@@ -12,13 +12,11 @@ const router = (express.Router());
 app.use(router);
 app.use(express.json())
 
-app.use('/jobs', jobSearchController)
-
 //Mentoring & Coaching
 app.use('/mentorsearch', mentorSearchController)
 app.use('/mentorinit', mentorInitController)
-app.use('/mentorselect', mentorSearchController)
-app.use('/mentorconfirm', mentorInitController)
+app.use('/mentorselect', mentorSelectController)
+app.use('/mentorconfirm', mentorConfirmController)
 
 app.get("/", (req: Request, res: Response) => {
   res.send("dsep unified bap client is working");

@@ -1,4 +1,7 @@
-export interface MentorContextDTO {
+@dto()
+export class MentorContextDTO {
+
+    @include()
     "domain": String,
     "country": String,
     "city": String,
@@ -13,8 +16,17 @@ export interface MentorContextDTO {
 }
 
 //Search
-export interface MentorSearchRequestDto{
-    "context": MentorContextDTO,
+@dto()
+export class MentorSearchRequestDto {
+
+    @include()
+    @nested(
+        () => MentorContextDTO,
+        false /* Set to true if this is an array otherwise false */
+    )
+    "context": MentorContextDTO;
+
+    @include()
     "message": {
         "intent": {
             "item": {
@@ -27,29 +39,66 @@ export interface MentorSearchRequestDto{
 }
 
 //Init
-export interface MentorInitRequestDto{
-    "context": MentorContextDTO,
+@dto()
+export class orderItemsDto{
+    @include()
+    "id": String
+}
+
+@dto()
+export class orderFulfillmentsDto{
+    @include()
+    "id": String
+}
+
+@dto()
+export class orderBillingDto{
+    @include()
+    "name": String,
+    "phone": String,
+    "email": String,
+    "time": {
+        "timezone": String
+    }
+}
+
+@dto()
+export class MentorInitRequestDto {
+
+    @include()
+    @nested(
+        () => MentorContextDTO,
+        false 
+    )
+    "context": MentorContextDTO;
+
+    @include()
     "message": {
         "order": {
-            "items": [
-                {
-                    "id": String
-                }
-            ],
-            "fulfillments": [
-                {
-                    "id": String
-                }
-            ],
-            "billing": {
-                "name": String,
-                "phone": String,
-                "email": String,
-                "time": {
-                    "timezone": String
-                }
+            "items":
+                @include
+                @nested(
+                    () => orderItemsDto,
+                    true
+                )
+                "items": orderItemsDto;
+
+                @include
+                @nested(
+                    () => orderFulfillmentsDto,
+                    true
+                )
+                "fulfillments": orderFulfillmentsDto;
+
+                @include
+                @nested(
+                    () => orderBillingDto,
+                    false
+                )
+                "billing": orderBillingDto;
             }
         }
+        
     }
 }
 
@@ -91,3 +140,4 @@ export interface MentorConfirmRequestDto{
         }
     }
 }
+
