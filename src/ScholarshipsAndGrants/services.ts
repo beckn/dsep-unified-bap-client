@@ -11,13 +11,22 @@ import {
   buildStatusRequest,
   buildStatusResponse,
   buildSelectRequest,
-  buildSelectResponse
+  buildSelectResponse,
+  buildCancelRequest,
+  buildCancelResponse,
+  buildTrackRequest,
+  buildTrackResponse,
+  buildSupportRequest,
+  buildSupportResponse,
+  buildRatingRequest,
+  buildRatingResponse
 } from "./schema-build-helper";
 import searchScholarshipResponse from "./mocks/searchScholarshipResponse.json";
 import initScholarshipResponse from "./mocks/initScholarshipResponse.json";
 import confirmScholarshipReponse from "./mocks/confirmScholarshipReponse.json";
 import statusScholarshipReponse from "./mocks/statusScholarshipReponse.json";
 import selectScholarshipResponse from "./mocks/selectScholarshipResponse.json";
+import cancelScholarShipResponse from "./mocks/cancelScholarshipResponse.json";
 
 const gatewayUrl = "https://dsep-protocol-client.becknprotocol.io";
 const scholarshipNetwork = process.env.SCHOLARSHIP_NETWORK;
@@ -98,6 +107,7 @@ export const initScholarshipService = async (body: any): Promise<any> => {
       let res = await axios.post(`${gatewayUrl}/init`, initRequest.payload, {
         headers
       });
+      console.log("INIYRESPONSE::",res)
       initResponse = buildInitResponse(res?.data, body);
     } else {
       initResponse = buildInitResponse(initScholarshipResponse, body);
@@ -163,3 +173,101 @@ export const statusScholarshipService = async (body: any): Promise<any> => {
     return { error: error, errorOccured: true };
   }
 };
+export const cancelScholarshipService = async (body: any): Promise<any> => {
+  try {
+   
+    const cancelRequest = buildCancelRequest(body);
+    console.log(JSON.stringify(cancelRequest));
+
+    let cancelResponse: any = {};
+
+    if (scholarshipNetwork !== "local") {
+      const headers = { "Content-Type": "application/JSON" };
+      let res = await axios.post(
+        `${gatewayUrl}/cancel`,
+        cancelRequest.payload,
+        { headers }
+      );
+      cancelResponse = buildCancelResponse(res?.data, body);
+    } else {
+      cancelResponse = buildCancelResponse(cancelScholarShipResponse, body);
+    }
+    return { data: cancelResponse };
+  } catch (error) {
+    return { error: error, errorOccured: true };
+  }
+};
+
+export const trackScholarshipService = async (body: any): Promise<any> => {
+  try {
+    const trackRequest = buildTrackRequest(body);
+    console.log(JSON.stringify(trackRequest));
+
+    let trackResponse: any = {};
+
+    if (scholarshipNetwork !== "local") {
+      const headers = { "Content-Type": "application/JSON" };
+      let res = await axios.post(`${gatewayUrl}/track`, trackRequest.payload, {
+        headers
+      });
+      trackResponse = buildTrackResponse(res?.data);
+    } else {
+      trackResponse = buildTrackResponse(cancelScholarShipResponse);
+    }
+    return { data: trackResponse };
+  } catch (error) {
+    return { error: error, errorOccured: true };
+  }
+};
+
+export const ratingScholarshipService = async (body: any): Promise<any> => {
+  try {
+    const ratingRequest = buildRatingRequest(body);
+    console.log(JSON.stringify(ratingRequest));
+
+    let ratingResponse: any = {};
+
+    if (scholarshipNetwork !== "local") {
+      const headers = { "Content-Type": "application/JSON" };
+      let res = await axios.post(
+        `${gatewayUrl}/rating`,
+        ratingRequest.payload,
+        {
+          headers
+        }
+      );
+      ratingResponse = buildRatingResponse(res?.data);
+    } else {
+      ratingResponse = buildRatingResponse(cancelScholarShipResponse);
+    }
+    return { data: ratingResponse };
+  } catch (error: any) {
+    return { error: error, errorOccured: true };
+  }
+};
+export const supportScholarshipService = async (body: any): Promise<any> => {
+  try {
+    const supportRequest = buildSupportRequest(body);
+    console.log(JSON.stringify(supportRequest));
+
+    let supportResponse: any = {};
+
+    if (scholarshipNetwork !== "local") {
+      const headers = { "Content-Type": "application/JSON" };
+      let res = await axios.post(
+        `${gatewayUrl}/support`,
+        supportRequest.payload,
+        {
+          headers
+        }
+      );
+      supportResponse = buildSupportResponse(res?.data);
+    } else {
+      supportResponse = buildSupportResponse(cancelScholarShipResponse);
+    }
+    return { data: supportResponse };
+  } catch (error) {
+    return { error: error, errorOccured: true };
+  }
+};
+

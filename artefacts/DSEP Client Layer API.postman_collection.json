@@ -1,0 +1,1045 @@
+{
+	"info": {
+		"_postman_id": "5f7e2f81-9fb4-4407-b21d-6ad45591695a",
+		"name": "DSEP Client Layer API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Jobs",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"loggedInUserEmail\": \"sugguna.rajesh70@gmail.com\",\n    \"title\": {\n        \"key\": \"Engineer\"\n    },\n    \"company\": {\n        \"name\": \"\",\n        \"locations\": [\n            {\n                \"city\": \"\"\n            }\n        ]\n    },\n    \"skills\": [\n        {\n            \"name\": \"\",\n            \"code\": \"\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "On search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/on_search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"on_search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"companyId\": \"1\",\n    \"jobs\": {\n        \"jobId\": \"D7F8606A370DA9966DF15E62A81C374B\"\n    },\n    \"context\": {\n        \"transactionId\": \"9bf0a4a6-6393-424c-b467-0e15da7500c2\",\n        \"bppId\": \"{{bpp_id}}\",\n        \"bppUri\": \"{{bpp_uri}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/select",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "On select",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/on_select",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"on_select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Init",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"transactionId\": \"a9aaecca-10b7-4d19-b640-b047a7c60008\",\n        \"bppId\": \"{{bpp_id}}\",\n        \"bppUri\": \"{{bpp_uri}}\"\n    },\n    \"companyId\": \"1\",\n    \"jobs\": {\n        \"jobId\": \"6f775971f4cb196d62f1233e4b4ade3b369b417afcdd6ae8089129827fab6a47\"\n    },\n    \"jobFulfillments\": [\n        {\n            \"JobFulfillmentCategoryId\": \"1\",\n            \"jobApplicantProfile\": {\n                \"name\": \"John Doe\",\n                \"languages\": [\n                    \"ENG\",\n                    \"HIN\"\n                ],\n                \"profileUrl\": \"https://linkedin.com/john-doe\",\n                \"creds\": [\n                    {\n                        \"url\": \"https://cbse.nic.in/link/to/college-marksheet.json\",\n                        \"type\": \"application/vc+json\"\n                    },\n                    {\n                        \"url\": \"https://drive.google.com/link/to/pass-certificate.json\",\n                        \"type\": \"application/vc+json\"\n                    },\n                    {\n                        \"url\": \"https://digilocker.com/link/to/python-skill-certificate.json\",\n                        \"type\": \"application/vc+json\"\n                    },\n                    {\n                        \"url\": \"https://drive.google.com/link/to/python-skill-certificate.pdf\",\n                        \"type\": \"application/pdf\"\n                    },\n                    {\n                        \"url\": \"https://drive.google.com/link/to/experience-certificate.pdf\",\n                        \"type\": \"application/pdf\"\n                    }\n                ],\n                \"skills\": [\n                    \"NodeJS\",\n                    \"React\",\n                    \"Project Management\",\n                    \"Enterprise Architecture\"\n                ]\n            }\n        }\n    ],\n    \"additionalFormData\": {\n        \"submissionId\": \"1676779486459\",\n        \"data\": [\n            {\n                \"formInputKey\": \"resume\",\n                \"formInputValue\": \"data:application/pdf;base64,JVBERi0xLjUKJd...c3RyZWFtCnjarVhLc9s2...\"\n            },\n            {\n                \"formInputKey\": \"work-mode\",\n                \"formInputValue\": \"hybrid\"\n            },\n            {\n                \"formInputKey\": \"exp-years\",\n                \"formInputValue\": \"10\"\n            },\n            {\n                \"formInputKey\": \"sop\",\n                \"formInputValue\": \"I am interested in this job because my prior experience is highly relevant to this role.\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/init",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"init"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Init Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"transactionId\": \"a9aaecca-10b7-4d19-b640-b047a7c60008\",\n        \"bppId\": \"affinidi.com.bpp\",\n        \"bppUri\": \"https://6vs8xnx5i7.execute-api.ap-south-1.amazonaws.com/dsep\"\n    },\n    \"companyId\": \"1\",\n    \"jobs\": {\n        \"jobId\": \"0253719F295521CED39EC9C2F3C8DCDE\"\n    },\n    \"jobFulfillments\": [\n        {\n            \"JobFulfillmentCategoryId\": \"1\",\n            \"jobApplicantProfile\": {\n                \"name\": \"John Doe\",\n                \"languages\": [\n                    \"ENG\",\n                    \"HIN\"\n                ],\n                \"profileUrl\": \"https://linkedin.com/john-doe\",\n                \"creds\": [\n                    {\n                        \"url\": \"https://cbse.nic.in/link/to/college-marksheet.json\",\n                        \"type\": \"application/vc+json\"\n                    },\n                    {\n                        \"url\": \"https://drive.google.com/link/to/pass-certificate.json\",\n                        \"type\": \"application/vc+json\"\n                    },\n                    {\n                        \"url\": \"https://digilocker.com/link/to/python-skill-certificate.json\",\n                        \"type\": \"application/vc+json\"\n                    },\n                    {\n                        \"url\": \"https://drive.google.com/link/to/python-skill-certificate.pdf\",\n                        \"type\": \"application/pdf\"\n                    },\n                    {\n                        \"url\": \"https://drive.google.com/link/to/experience-certificate.pdf\",\n                        \"type\": \"application/pdf\"\n                    }\n                ],\n                \"skills\": [\n                    \"NodeJS\",\n                    \"React\",\n                    \"Project Management\",\n                    \"Enterprise Architecture\"\n                ]\n            }\n        }\n    ],\n    \"additionalFormData\": {\n        \"submissionId\": \"123456\",\n        \"data\": [\n            {\n                \"formInputKey\": \"resume\",\n                \"formInputValue\": \"data:application/pdf;base64,JVBERi0xLjUKJd...c3RyZWFtCnjarVhLc9s2...\"\n            },\n            {\n                \"formInputKey\": \"work-mode\",\n                \"formInputValue\": \"hybrid\"\n            },\n            {\n                \"formInputKey\": \"exp-years\",\n                \"formInputValue\": \"10\"\n            },\n            {\n                \"formInputKey\": \"sop\",\n                \"formInputValue\": \"I am interested in this job because my prior experience is highly relevant to this role.\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/init",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"init"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jobId\": \"8A690F158A37965A2CC0E69EC8B360B2\",\n    \"context\": {\n        \"bppId\": \"{{bpp_id}}\",\n        \"bppUri\": \"{{bpp_uri}}\",\n        \"transactionId\": \"a9aaecca-10b7-4d19-b640-b047a7c60008\"\n    },\n    \"confirmation\": {\n        \"JobFulfillmentCategoryId\": \"1\",\n        \"jobApplicantProfile\": {\n            \"name\": \"John Doe\",\n            \"languages\": [\n                \"ENG\",\n                \"HIN\"\n            ],\n            \"profileUrl\": \"https://linkedin.com/john-doe\",\n            \"creds\": [\n                {\n                    \"url\": \"https://cbse.nic.in/link/to/college-marksheet.json\",\n                    \"type\": \"application/vc+json\"\n                },\n                {\n                    \"url\": \"https://drive.google.com/link/to/pass-certificate.json\",\n                    \"type\": \"application/vc+json\"\n                },\n                {\n                    \"url\": \"https://digilocker.com/link/to/python-skill-certificate.json\",\n                    \"type\": \"application/vc+json\"\n                },\n                {\n                    \"url\": \"https://drive.google.com/link/to/python-skill-certificate.pdf\",\n                    \"type\": \"application/pdf\"\n                },\n                {\n                    \"url\": \"https://drive.google.com/link/to/experience-certificate.pdf\",\n                    \"type\": \"application/pdf\"\n                }\n            ],\n            \"skills\": [\n                \"NodeJS\",\n                \"React\",\n                \"Project Management\",\n                \"Enterprise Architecture\"\n            ]\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/confirm",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"applicationId\": \"1676631253211\",\n    \"context\": {\n        \"transactionId\": \"a9aaecca-10b7-4d19-b640-b047a7c62195\",\n        \"bppId\": \"{{bpp_id}}\",\n        \"bppUri\": \"{{bpp_uri}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/status",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gen Submission ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"resume\" :\"data:application/pdf;base64,JVBERi0xLjUKJd...c3RyZWFtCnjarVhLc9s2...\",\n    \"work_mode\":  \"hybrid\",\n    \"exp_years\": \"10\",\n    \"motivation\": \"I am interested in this job because my prior experience is highly relevant to this role.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://6vs8xnx5i7.execute-api.ap-south-1.amazonaws.com/dsep/xinput/submit/1676779486459",
+							"protocol": "https",
+							"host": [
+								"6vs8xnx5i7",
+								"execute-api",
+								"ap-south-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"dsep",
+								"xinput",
+								"submit",
+								"1676779486459"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Track",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n       \n    },\n    \"message\": {\n        \"order_id\": \"1677140405881\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/track",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"track"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n    },\n    \"message\": {\n        \"order_id\": \"3c4f7ebf-4f77-4044-a8fe-63d690c0ecb1\",\n        \"cancellation_reason_id\": \"12\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/cancel",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Support",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n   \n    },\n    \"message\": {\n        \"ref_id\": \"1677140405881\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/support",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"support"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rating",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n    },\n    \"message\": {\n        \"id\": \"1677140405881\",\n        \"rating_category\": \"JOB-SEARCH-EXPERIENCE\",\n        \"value\": \"4\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/job/rating",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"job",
+								"rating"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mentorship",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"loggedInUserEmail\": \"test123456.dev002@gmail.com\",\n    \"sessionTitle\": {\n        \"key\": \"Management\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mentorshipId\": \"63f1ebc423df082856936510\",\n  \"context\": {\n    \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n    \"bppId\": \"{{bpp_id}}\",\n    \"bppUri\": \"{{bpp_uri}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/select",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Init",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mentorshipId\": \"63f1ebc423df082856936510\",\n  \"mentorshipSessionId\": \"63d93aea62820fd9e6be9d1b\",\n  \"context\": {\n    \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n    \"bppId\": \"{{bpp_id}}\",\n    \"bppUri\": \"{{bpp_uri}}\"\n  },\n  \"billing\": {\n    \"name\": \"Van Bode III\",\n    \"phone\": \"881-311-2951 x01508\",\n    \"email\": \"test_user12@gmail.com\",\n    \"time\": {\n      \"timezone\": \"IST\"\n    }\n  }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/init",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"init"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mentorshipId\": \"63f1ebc423df082856936510\",\n  \"mentorshipSessionId\": \"3f8fb3a3-f018-40e6-9b96-8b7bbd5df965\",\n  \"context\": {\n    \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n    \"bppId\": \"{{bpp_id}}\",\n    \"bppUri\": \"{{bpp_uri}}\"\n  },\n  \"billing\": {\n    \"name\": \"Van Bode III\",\n    \"phone\": \"881-311-2951 x01508\",\n    \"email\": \"test_user1222517131@gmail.com\",\n    \"time\": {\n      \"timezone\": \"IST\"\n    }\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/confirm",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mentorshipApplicationId\": \"123456\",\n  \"context\": {\n    \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n    \"bppId\": \"{{bpp_id}}\",\n    \"bppUri\": \"{{bpp_uri}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/status",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mentorshipApplicationId\": \"123456\",\n  \"mentorshipCancellationReasonId\": 12,\n  \"context\": {\n    \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n    \"bppId\": \"{{bpp_id}}\",\n    \"bppUri\": \"{{bpp_uri}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/cancel",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Track",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n       \n    },\n    \"message\": {\n        \"order_id\": \"3159f713-120e-4e7e-beae-6a638fb5df55\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/track",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"track"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Support",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n   \n    },\n    \"message\": {\n        \"ref_id\": \"3159f713-120e-4e7e-beae-6a638fb5df55\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/support",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"support"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rating",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n    },\n    \"message\": {\n        \"id\": \"3159f713-120e-4e7e-beae-6a638fb5df55\",\n        \"rating_category\": \"MENTOR-KNOWLEDGE\",\n        \"value\": \"4\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/rating",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"rating"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Scholarship",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Undergraduation scholarship\",\n  \"gender\": \"Female\",\n  \"finStatus\": {\n    \"family_income\": \"200000\"\n  },\n  \"casteCategory\": [\n    {\n      \"caste\": \"SC\"\n    }\n  ],\n  \"categories\": [\n    {\n      \"code\": \"ug\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scholarship/search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scholarship",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scholarshipProviderId\": \"ZQU31169990\",\n    \"scholarshipId\": \"SCM_58741444\",\n    \"context\": {\n        \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n        \"bppId\": \"{{bpp_id}}\",\n        \"bppUri\": \"{{bpp_uri}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scholarship/select",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scholarship",
+								"select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Init",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n        \"bppId\": \"{{bpp_id}}\",\n        \"bppUri\": \"{{bpp_uri}}\"\n    },\n    \"scholarshipProvider\": {\n        \"id\": \"BX213573733\",\n        \"name\": \"XYZ Education Foundation\",\n        \"scholarships\": [\n            {\n                \"id\": \"SCM_00420068\",\n                \"name\": \"XYZ Foundation Undergraduation scholarship\",\n                \"description\": \"XYZ Foundation Undergraduation scholarship\",\n                \"amount\": {\n                    \"amount\": 30000,\n                    \"currency\": \"INR\"\n                },\n                \"categoryId\": \"DSEP_CAT_1\",\n                \"scholarshipDetails\": {\n                    \"id\": \"DSEP_FUL_01\",\n                    \"type\": \"SCHOLARSHIP\",\n                    \"applicationStartDate\": \"2022-12-01\",\n                    \"applicationEndDate\": \"2022-12-31\",\n                    \"supportContact\": {\n                        \"name\": \"Mary G\",\n                        \"phone\": \"9876543210\",\n                        \"email\": \"maryg@xyz.com\"\n                    },\n                    \"scholarshipRequestor\": {\n                        \"name\": \"James\",\n                        \"phone\": \"498674\",\n                        \"address\": \"Mumbai\",\n                        \"needOfScholarship\": \"higher education\",\n                        \"docUrl\": \" http://abc.co/docs\"\n                    }\n                },\n                \"additionalFormData\": {\n                    \"formUrl\": \"https://proteanrc.centralindia.cloudapp.azure.com/dsep-bpp-1/public/getForm/a9aaecca-10b7-4d19-b640-022723112309/ba854d6184fa48eea36aab701486eee9\",\n                    \"formMimeType\": \"text/html\",\n                    \"submissionId\": \"6c85a598-49b5-45e5-99c2-733b915632a5\",\n                    \"data\": [\n                        {\n                            \"formInputKey\": \"name\",\n                            \"formInputValue\": \"James\"\n                        },\n                        {\n                            \"formInputKey\": \"phone\",\n                            \"formInputValue\": 498674\n                        },\n                        {\n                            \"formInputKey\": \"address\",\n                            \"formInputValue\": \"Mumbai\"\n                        },\n                        {\n                            \"formInputKey\": \"needOfScholarship\",\n                            \"formInputValue\": \"higher education\"\n                        },\n                        {\n                            \"formInputKey\": \"docUrl\",\n                            \"formInputValue\": \"http://abc.co/docs\"\n                        }\n                    ]\n                },\n                \"academicQualificationsCriteria\": [\n                    {\n                        \"code\": \"gr\",\n                        \"name\": \"Grade\",\n                        \"value\": \"Grade 12\"\n                    },\n                    {\n                        \"code\": \"percentage_grade\",\n                        \"name\": \"Percentage/Grade\",\n                        \"value\": \">= 50\"\n                    },\n                    {\n                        \"code\": \"passing_year\",\n                        \"name\": \"Passing Year\",\n                        \"value\": 2021\n                    }\n                ],\n                \"finStatusCriteria\": [\n                    {\n                        \"code\": \"family_income\",\n                        \"name\": \"Family Income\",\n                        \"value\": \"<= 2000000\"\n                    }\n                ],\n                \"benefits\": [\n                    {\n                        \"code\": \"scholarship-amount\",\n                        \"name\": \"Scholarship Amount\",\n                        \"value\": \"Upto Rs.30000 per year\"\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scholarship/init",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scholarship",
+								"init"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n     \"bppId\": \"{{bpp_id}}\",\n        \"bppUri\": \"{{bpp_uri}}\"\n    },\n    \"scholarshipProvider\": {\n        \"id\": \"ZQU31169990\",\n        \"name\": \"XYZ Education Foundation\",\n        \"description\": \"XYZ Education Foundation\",\n        \"scholarships\": [\n            {\n                \"id\": \"SCM_58741444\",\n                \"name\": \"XYZ Undergraduation scholarship for Economically Backward Female Students\",\n                \"description\": \"XYZ Undergraduation scholarship for Economically Backward Female Students\",\n                \"categoryId\": \"DSEP_CAT_2\",\n                \"amount\": {\n                    \"amount\": 30000,\n                    \"currency\": \"INR\"\n                },\n                \"scholarshipDetails\": {\n                    \"id\": \"DSEP_FUL_58741444\",\n                    \"type\": \"SCHOLARSHIP\",\n                    \"applicationEndDate\": \"2023-03-31T00:00:00.000Z\",\n                    \"applicationStartDate\": \"2023-01-01T00:00:00.000Z\",\n                    \"supportContact\": {\n                        \"name\": \"Mary G\",\n                        \"phone\": \"9876543210\",\n                        \"email\": \"maryg@xyz.com\"\n                    },\n                    \"scholarshipRequestor\": {\n                        \"name\": \"James\",\n                        \"phone\": \"498674\",\n                        \"address\": \"Mumbai\",\n                        \"needOfScholarship\": \"higher education\",\n                        \"docUrl\": \" http://abc.co/docs\"\n                    }\n                },\n                \"additionalFormData\": {\n                    \"formUrl\": \"https://proteanrc.centralindia.cloudapp.azure.com/dsep-bpp-1/public/getForm/a9aaecca-10b7-4d19-b640-022723112309/ba854d6184fa48eea36aab701486eee9\",\n                    \"formMimeType\": \"text/html\",\n                    \"submissionId\": \"8203501c-8934-468c-b947-1d5317847e9a\",\n                    \"data\": [\n                        {\n                            \"formInputKey\": \"name\",\n                            \"formInputValue\": \"James\"\n                        },\n                        {\n                            \"formInputKey\": \"phone\",\n                            \"formInputValue\": 498674\n                        },\n                        {\n                            \"formInputKey\": \"address\",\n                            \"formInputValue\": \"Mumbai\"\n                        },\n                        {\n                            \"formInputKey\": \"needOfScholarship\",\n                            \"formInputValue\": \"higher education\"\n                        },\n                        {\n                            \"formInputKey\": \"docUrl\",\n                            \"formInputValue\": \"http://abc.co/docs\"\n                        }\n                    ]\n                },\n                \"academicQualificationsCriteria\": [\n                    {\n                        \"code\": \"gr\",\n                        \"name\": \"Grade\",\n                        \"value\": \"Grade 12\"\n                    },\n                    {\n                        \"code\": \"percentage_grade\",\n                        \"name\": \"Percentage/Grade\",\n                        \"value\": \">= 50\"\n                    },\n                    {\n                        \"code\": \"passing_year\",\n                        \"name\": \"Passing Year\",\n                        \"value\": 2021\n                    }\n                ],\n                \"finStatusCriteria\": [\n                    {\n                        \"code\": \"family_income\",\n                        \"name\": \"Family Income\",\n                        \"value\": \"<= 2000000\"\n                    }\n                ],\n                \"benefits\": [\n                    {\n                        \"code\": \"scholarship-amount\",\n                        \"name\": \"Scholarship Amount\",\n                        \"value\": \"Upto Rs.30000 per year\"\n                    }\n                ]\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scholarship/confirm",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scholarship",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scholarshipApplicationId\": \"APP_77182823\",\n    \"context\": {\n        \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n        \"bppId\": \"{{bpp_id}}\",\n        \"bppUri\": \"{{bpp_uri}}\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scholarship/status",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scholarship",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"scholarshipApplicationId\": \"APP_77182823\",\n  \"scholarshipCancellationReasonId\": 12,\n  \"context\": {\n    \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n    \"bppId\": \"{{bpp_id}}\",\n    \"bppUri\": \"{{bpp_uri}}\"\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/cancel",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Track",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n       \n    },\n    \"message\": {\n        \"order_id\": \"3159f713-120e-4e7e-beae-6a638fb5df55\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/track",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"track"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Support",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n   \n    },\n    \"message\": {\n        \"ref_id\": \"3159f713-120e-4e7e-beae-6a638fb5df55\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/support",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"support"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rating",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"bpp_id\": \"{{bpp_id}}\",\n        \"bpp_uri\": \"{{bpp_uri}}\",\n        \"transaction_id\": \"46a22107-cdcc-404b-9d6d-d423a4c30064\"\n    },\n    \"message\": {\n        \"id\": \"3159f713-120e-4e7e-beae-6a638fb5df55\",\n        \"rating_category\": \"MENTOR-KNOWLEDGE\",\n        \"value\": \"4\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/mentorship/rating",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"mentorship",
+								"rating"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Training",
+			"item": [
+				{
+					"name": "Search",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"searchTitle\": \"Prof Kannan Moudgalya\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/course/search",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"course",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"courseProviderId\": \"ZQU31169990\",\n    \"courseId\": \"Q291cnNlTGlzdDovbmQyX2FpYzIwX3NwMDE=\",\n    \"context\": {\n        \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n        \"bppId\": \"bpp.dsep.samagra.io\",\n        \"bppUri\": \"https://bpp.dsep.samagra.io\"\n    }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/course/select",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"course",
+								"select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Init",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n        \"bppId\": \"bpp.dsep.samagra.io\",\n        \"bppUri\": \"https://bpp.dsep.samagra.io\"\n    },\n    \"courseId\": \"Q291cnNlTGlzdDovbmQyX2FpYzIwX3NwMDE=\",\n    \"CourseProviderId\": \"AICTE\",\n    \"applicantProfile\": {\n        \"name\": \"Test User\",\n        \"email\": \"test@user.com\",\n        \"contact\": \"9900119922\"\n    },\n    \"additionalFormData\": {\n        \"submissionId\": \"123456\",\n        \"data\": [\n            {\n                \"formInputKey\": \"key123\",\n                \"formInputValue\": \"value123\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/course/init",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"course",
+								"init"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"context\": {\n        \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n        \"bppId\": \"bpp.dsep.samagra.io\",\n        \"bppUri\": \"https://bpp.dsep.samagra.io\"\n    },\n    \"courseId\": \"Q291cnNlTGlzdDovbmQyX2FpYzIwX3NwMDE=\",\n    \"CourseProviderId\": \"AICTE\",\n    \"applicantProfile\": {\n        \"name\": \"Test User\",\n        \"email\": \"test@user.com\",\n        \"contact\": \"9900119922\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/course/confirm",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"course",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"scholarshipApplicationId\": \"APP_77182823\",\n    \"context\": {\n        \"transactionId\": \"bdb5ba09-2241-4f00-b434-73466cd06228\",\n        \"bppId\": \"https://proteanrc.centralindia.cloudapp.azure.com/dsep-bpp-1\",\n        \"bppUri\": \"https://proteanrc.centralindia.cloudapp.azure.com/dsep-bpp-1/public\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/scholarship/status",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"scholarship",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://127.0.0.1:3000",
+			"type": "string"
+		},
+		{
+			"key": "bpp_id",
+			"value": "beckn-sandbox-bpp.becknprotocol.io",
+			"type": "string"
+		},
+		{
+			"key": "bpp_uri",
+			"value": "https://sandbox-bpp-network.becknprotocol.io",
+			"type": "string"
+		}
+	]
+}
