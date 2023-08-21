@@ -985,3 +985,116 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
 
   return { data: { context, scholarshipApplicationId, scholarshipProviders } };
 };
+export const buildCancelRequest = (input: any = {}) => {
+  const context = buildContext({
+    ...input.context,
+    action: "cancel",
+    category: "scholarships"
+  });
+
+  let message: any = { order_id: input?.scholarshipApplicationId };
+  if (input?.scholarshipCancellationReasonId) {
+    message = {
+      ...message,
+      cancellation_reason_id: `${input?.scholarshipCancellationReasonId}`
+    };
+  }
+  if (input?.scholarshipCancellationReason) {
+    message = {
+      ...message,
+      descriptor: { name: input?.scholarshipCancellationReason }
+    };
+  }
+  return { payload: { context, message } };
+};
+export const buildCancelResponse = (response: any = {}, input: any = {}) => {
+  const context = {
+    transactionId: response?.responses[0]?.context?.transaction_id,
+    bppId: response?.responses[0]?.context?.bpp_id,
+    bppUri: response?.responses[0]?.context?.bpp_uri
+  };
+
+  const scholarshipApplicationId = response?.responses[0]?.message?.order?.id;
+
+  return { context, scholarshipApplicationId };
+};
+
+
+export const buildTrackRequest = (input: any = {}) => {
+  const context = buildContext({
+    category: "scholarships",
+    action: "track",
+    bppId: input?.context?.bpp_id,
+    bppUri: input?.context?.bpp_uri,
+    transactionId: input?.context?.transactionId
+  });
+
+  const message = {
+    order_id: input?.message?.order_id
+  };
+  return { payload: { context, message } };
+};
+export const buildTrackResponse = (input: any = {}) => {
+  const response = input?.responses[0];
+  const {
+    transaction_id: transactionId,
+    message_id: messageId,
+    bpp_id: bppId,
+    bpp_uri: bppUri
+  }: any = response?.context ?? {};
+  const context = { transactionId, messageId, bppId, bppUri };
+  return { context, message: response?.message ?? {} };
+};
+
+export const buildSupportRequest = (input: any = {}) => {
+  const context = buildContext({
+    category: "scholarships",
+    action: "support",
+    bppId: input?.context?.bpp_id,
+    bppUri: input?.context?.bpp_uri,
+    transactionId: input?.context?.transactionId
+  });
+  const message = {
+    ref_id: input?.message?.ref_id
+  };
+  return { payload: { context, message } };
+};
+export const buildSupportResponse = (input: any = {}) => {
+  const response = input?.responses[0];
+  const {
+    transaction_id: transactionId,
+    message_id: messageId,
+    bpp_id: bppId,
+    bpp_uri: bppUri
+  }: any = response?.context ?? {};
+
+  const context = { transactionId, messageId, bppId, bppUri };
+  return { context, message: response?.message ?? {} };
+};
+export const buildRatingRequest = (input: any = {}) => {
+  const context = buildContext({
+    category: "scholarships",
+    action: "rating",
+    bppId: input?.context?.bpp_id,
+    bppUri: input?.context?.bpp_uri,
+    transactionId: input?.context?.transactionId
+  });
+  const message = {
+    id: input?.message?.id,
+    rating_category: input?.message?.rating_category,
+    value: input?.message?.value
+  };
+  return { payload: { context, message } };
+};
+
+export const buildRatingResponse = (input: any = {}) => {
+  const response = input?.responses[0];
+  const {
+    transaction_id: transactionId,
+    message_id: messageId,
+    bpp_id: bppId,
+    bpp_uri: bppUri
+  }: any = response?.context ?? {};
+  const context = { transactionId, messageId, bppId, bppUri };
+  return { data: { context, message: response?.message ?? {} } };
+};

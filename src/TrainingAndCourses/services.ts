@@ -10,12 +10,22 @@ import {
   buildStatusRequest,
   buildStatusResponse,
   buildSelectRequest,
-  buildSelectResponse
+  buildSelectResponse,
+  buildCancelRequest,
+  buildCancelResponse,
+  buildTrackRequest,
+  buildTrackResponse,
+  buildSupportRequest,
+  buildSupportResponse,
+  buildRatingRequest,
+  buildRatingResponse
 } from "./schema-build-helper";
 import searchTrainingResponse from "./mocks/searchTrainingResponse.json";
 import initTrainingResponse from "./mocks/initTrainingResponse.json";
 import confirmTrainingResponse from "./mocks/confirmTrainingResponse.json";
 import selectTrainingResponse from "./mocks/selectTrainingResponse.json";
+import cancelTrainingResponse from "./mocks/cancelTrainingResponse.json";
+
 
 const gatewayUrl = process.env.GATEWAY_URL;
 const trainingNetwork = process.env.TRAINING_NETWORK;
@@ -138,6 +148,103 @@ export const selectTrainingService = async (body: any): Promise<any> => {
     return selectResponse;
   } catch (error: any) {
     console.log(error);
+    return { error: error, errorOccured: true };
+  }
+};
+export const cancelTrainingService = async (body: any): Promise<any> => {
+  try {
+   
+    const cancelRequest = buildCancelRequest(body);
+    console.log(JSON.stringify(cancelRequest));
+
+    let cancelResponse: any = {};
+
+    if (trainingNetwork !== "local") {
+      const headers = { "Content-Type": "application/JSON" };
+      let res = await axios.post(
+        `${gatewayUrl}/cancel`,
+        cancelRequest.payload,
+        { headers }
+      );
+      cancelResponse = buildCancelResponse(res?.data, body);
+    } else {
+      cancelResponse = buildCancelResponse(cancelTrainingResponse, body);
+    }
+    return { data: cancelResponse };
+  } catch (error) {
+    return { error: error, errorOccured: true };
+  }
+};
+
+export const trackTrainingService = async (body: any): Promise<any> => {
+  try {
+    const trackRequest = buildTrackRequest(body);
+    console.log(JSON.stringify(trackRequest));
+
+    let trackResponse: any = {};
+
+    if (trainingNetwork !== "local") {
+      const headers = { "Content-Type": "application/JSON" };
+      let res = await axios.post(`${gatewayUrl}/track`, trackRequest.payload, {
+        headers
+      });
+      trackResponse = buildTrackResponse(res?.data);
+    } else {
+      trackResponse = buildTrackResponse(cancelTrainingResponse);
+    }
+    return { data: trackResponse };
+  } catch (error) {
+    return { error: error, errorOccured: true };
+  }
+};
+
+export const ratingTrainingService = async (body: any): Promise<any> => {
+  try {
+    const ratingRequest = buildRatingRequest(body);
+    console.log(JSON.stringify(ratingRequest));
+
+    let ratingResponse: any = {};
+
+    if (trainingNetwork !== "local") {
+      const headers = { "Content-Type": "application/JSON" };
+      let res = await axios.post(
+        `${gatewayUrl}/rating`,
+        ratingRequest.payload,
+        {
+          headers
+        }
+      );
+      ratingResponse = buildRatingResponse(res?.data);
+    } else {
+      ratingResponse = buildRatingResponse(cancelTrainingResponse);
+    }
+    return { data: ratingResponse };
+  } catch (error: any) {
+    return { error: error, errorOccured: true };
+  }
+};
+export const supportTrainingService = async (body: any): Promise<any> => {
+  try {
+    const supportRequest = buildSupportRequest(body);
+    console.log(JSON.stringify(supportRequest));
+
+    let supportResponse: any = {};
+
+    if (trainingNetwork !== "local") {
+      const headers = { "Content-Type": "application/JSON" };
+      let res = await axios.post(
+        `${gatewayUrl}/support`,
+        supportRequest.payload,
+        {
+          headers
+        }
+      );
+      supportResponse = buildSupportResponse(res?.data);
+    } else {
+      supportResponse = buildSupportResponse(cancelTrainingResponse);
+    }
+    return { data: supportResponse };
+  } catch (error) {
     return { error: error, errorOccured: true };
   }
 };
