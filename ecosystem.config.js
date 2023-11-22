@@ -1,11 +1,11 @@
 module.exports = {
-    apps: [
-        {
-            name: "dsep-unified-bap-client",
-            script: './dist/index.js',
-            watch: true,
-            instances: 3,
-            exec_mode: "cluster",
-        }
-    ]
-}
+  apps: [
+    {
+      name: "odr-client-layer",
+      script: "./dist/index.js",
+      watch: true,
+      instances: 1,
+      exec_mode: "cluster"
+    }
+  ]
+};

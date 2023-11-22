@@ -44,7 +44,7 @@ app.use("/scholarship", scholarshipsRoutes());
 app.use("/mentorship", mentorshipRoutes());
 app.use("/course", trainingRoutes());
 app.use("/dhp", DHProutes());
-app.use("/odr", odrRoutes())
+app.use("/odr", odrRoutes());
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

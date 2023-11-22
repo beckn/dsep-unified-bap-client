@@ -4,7 +4,7 @@ import { IScholarshipNetworkContext } from "./schema";
 export const buildContext = (input: any = {}) => {
   console.log("input", input);
   const context: IScholarshipNetworkContext = {
-    domain: `${process.env.DOMAIN}${input?.category ?? "scholarships"}`,
+    domain: input?.domain,
     location: {
       city: {
         name: process.env.CITY || "",
@@ -30,7 +30,10 @@ export const buildContext = (input: any = {}) => {
 };
 
 export const buildSearchRequest = (input: any = {}) => {
-  const context = buildContext({ action: "search", category: "scholarships" });
+  const context = buildContext({
+    action: "search",
+    domain: "online-dispute-resolution:0.1.0"
+  });
   const message: any = {
     intent: {}
   };
@@ -55,7 +58,7 @@ export const buildSearchRequest = (input: any = {}) => {
       descriptor: {
         name: input?.category?.name
       }
-    }
+    };
   }
   if (input?.gender) {
     fulfillment.customer.person = {
@@ -241,7 +244,11 @@ export const buildSavedAppliedCategoryResponse = (
 
 export const buildSelectRequest = (input: any = {}) => {
   const payload = {
-    context: buildContext({ ...(input?.context ?? {}), action: "select" }),
+    context: buildContext({
+      ...(input?.context ?? {}),
+      action: "select",
+      domain: "online-dispute-resolution:0.1.0"
+    }),
     message: {
       order: {
         provider: { id: input?.scholarshipProviderId },
@@ -371,7 +378,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
 export const buildInitRequest = (input: any = {}) => {
   const context = buildContext({
     ...input?.context,
-    category: "scholarships",
+    domain: "online-dispute-resolution:0.1.0",
     action: "init"
   });
   const { scholarshipProvider = {} } = input;
@@ -646,7 +653,7 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
 export const buildConfirmRequest = (input: any = {}) => {
   const context = buildContext({
     ...input?.context,
-    category: "scholarships",
+    domain: "online-dispute-resolution:0.1.0",
     action: "confirm"
   });
   const { scholarshipProvider = {} } = input;
@@ -934,7 +941,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
 export const buildStatusRequest = (input: any = {}) => {
   const context = buildContext({
     ...input?.context,
-    category: "scholarships",
+    domain: "online-dispute-resolution:0.1.0",
     action: "status"
   });
   const message = {
