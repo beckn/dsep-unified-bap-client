@@ -50,6 +50,13 @@ export const buildSearchRequest = (input: any = {}) => {
       }
     };
   }
+  if (input?.category) {
+    message.intent.category = {
+      descriptor: {
+        name: input?.category?.name
+      }
+    }
+  }
   if (input?.gender) {
     fulfillment.customer.person = {
       ...fulfillment.customer.person,
@@ -110,9 +117,9 @@ export const buildOnSearchMergedResponse = async (
 ) => {
   let savedAppliedResult = response?.itemRes
     ? await buildSavedAppliedCategoryResponse(
-        response.itemRes[0],
-        response.itemRes[1]
-      )
+      response.itemRes[0],
+      response.itemRes[1]
+    )
     : null;
   return buildSearchResponse(
     response.searchRes,
@@ -473,11 +480,10 @@ export const buildInitRequest = (input: any = {}) => {
                 name: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "name"
                 )?.formInputValue,
-                phone: `${
-                  scholarship?.additionalFormData?.data.find(
-                    (elem: any) => elem?.formInputKey === "phone"
-                  )?.formInputValue
-                }`,
+                phone: `${scholarship?.additionalFormData?.data.find(
+                  (elem: any) => elem?.formInputKey === "phone"
+                )?.formInputValue
+                  }`,
                 address: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "address"
                 )?.formInputValue,
@@ -748,11 +754,10 @@ export const buildConfirmRequest = (input: any = {}) => {
                 name: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "name"
                 )?.formInputValue,
-                phone: `${
-                  scholarship?.additionalFormData?.data.find(
-                    (elem: any) => elem?.formInputKey === "phone"
-                  )?.formInputValue
-                }`,
+                phone: `${scholarship?.additionalFormData?.data.find(
+                  (elem: any) => elem?.formInputKey === "phone"
+                )?.formInputValue
+                  }`,
                 address: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "address"
                 )?.formInputValue,
@@ -974,15 +979,15 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
         )?.[0],
         applicationStartDate:
           response?.message?.order?.fulfillments[0]?.stops[0]?.type ===
-          "APPLICATION-START"
+            "APPLICATION-START"
             ? response?.message?.order?.fulfillments[0]?.stops[0]?.time
-                .timestamp
+              .timestamp
             : "",
         applicationEndDate:
           response?.message?.order?.fulfillments[0]?.stops[1]?.type ===
-          "APPLICATION-END"
+            "APPLICATION-END"
             ? response?.message?.order?.fulfillments[0]?.stops[1]?.time
-                .timestamp
+              .timestamp
             : ""
       }))
     }
