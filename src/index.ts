@@ -6,6 +6,7 @@ import { scholarshipsRoutes } from "./ScholarshipsAndGrants/route";
 import { trainingRoutes } from "./TrainingAndCourses/route";
 import cors from "cors";
 import { DHProutes } from "./DHP";
+import { odrRoutes } from "./odr/route";
 dotenv.config();
 
 const app: Express = express();
@@ -43,6 +44,7 @@ app.use("/scholarship", scholarshipsRoutes());
 app.use("/mentorship", mentorshipRoutes());
 app.use("/course", trainingRoutes());
 app.use("/dhp", DHProutes());
+app.use("/odr", odrRoutes())
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
