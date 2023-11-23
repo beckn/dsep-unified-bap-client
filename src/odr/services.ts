@@ -32,7 +32,7 @@ const axios = axiosInstance.create({
 export const searchScholarshipService = async (body: any): Promise<any> => {
   try {
     const { payload, optional } = buildSearchRequest(body);
-    console.log("Search Payload:====> ", JSON.stringify(payload));
+    console.log("Search Payload:=====> ", JSON.stringify(payload));
 
     let searchResponse: any = {};
     if (scholarshipNetwork !== "local") {
