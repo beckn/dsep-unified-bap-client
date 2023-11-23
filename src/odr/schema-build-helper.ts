@@ -8,12 +8,12 @@ export const buildContext = (input: any = {}) => {
     location: {
       city: {
         name: process.env.CITY || "",
-        code: process.env.CITY_CODE || ""
+        code: process.env.CITY_CODE || "",
       },
       country: {
         name: process.env.COUNTRY || "",
-        code: process.env.COUNTRY_CODE || ""
-      }
+        code: process.env.COUNTRY_CODE || "",
+      },
     },
     action: input.action ?? "",
     version: `${process.env.CORE_VERSION || (input?.core_version ?? "")}`,
@@ -24,7 +24,7 @@ export const buildContext = (input: any = {}) => {
     bpp_uri: input?.bppUri,
     message_id: input?.messageId ?? uuid(),
 
-    timestamp: input.timestamp ?? moment().toISOString()
+    timestamp: input.timestamp ?? moment().toISOString(),
   };
   return context;
 };
@@ -32,38 +32,38 @@ export const buildContext = (input: any = {}) => {
 export const buildSearchRequest = (input: any = {}) => {
   const context = buildContext({
     action: "search",
-    domain: "online-dispute-resolution:0.1.0"
+    domain: "online-dispute-resolution:0.1.0",
   });
   const message: any = {
-    intent: {}
+    intent: {},
   };
   const optional: any = {};
 
   const fulfillment: any = {
     customer: {
-      person: {}
-    }
+      person: {},
+    },
   };
   const tags: any = [];
   if (input?.name) {
     message.intent.item = {
       ...message.intent.item,
       descriptor: {
-        name: input?.name
-      }
+        name: input?.name,
+      },
     };
   }
   if (input?.category) {
     message.intent.category = {
       descriptor: {
-        name: input?.category?.name
-      }
+        name: input?.category?.name,
+      },
     };
   }
   if (input?.gender) {
     fulfillment.customer.person = {
       ...fulfillment.customer.person,
-      gender: input?.gender
+      gender: input?.gender,
     };
   }
   if (input?.finStatus) {
@@ -76,11 +76,11 @@ export const buildSearchRequest = (input: any = {}) => {
           list: [
             {
               code: "family_income",
-              value: input?.finStatus?.family_income
-            }
-          ]
-        }
-      ]
+              value: input?.finStatus?.family_income,
+            },
+          ],
+        },
+      ],
     };
   }
   if (input?.casteCategory?.length) {
@@ -89,9 +89,9 @@ export const buildSearchRequest = (input: any = {}) => {
         code: "caste_category",
         list: [
           {
-            value: caste?.caste
-          }
-        ]
+            value: caste?.caste,
+          },
+        ],
       });
     });
   }
@@ -103,8 +103,8 @@ export const buildSearchRequest = (input: any = {}) => {
   if (input?.categories?.length)
     message.intent.provider = {
       categories: input?.categories?.map((category: any) => ({
-        descriptor: { code: category?.code }
-      }))
+        descriptor: { code: category?.code },
+      })),
     };
 
   if (Object.keys(fulfillment?.customer?.person ?? {})?.length) {
@@ -145,7 +145,7 @@ export const buildSearchResponse = (
       transaction_id: transactionId,
       message_id: messageId,
       bpp_id: bppId,
-      bpp_uri: bppUri
+      bpp_uri: bppUri,
     }: any = bpp?.context ?? {};
     const context = { transactionId, messageId, bppId, bppUri };
     const scholarshipProviderPlatform = bpp?.message?.catalog?.descriptor?.name;
@@ -168,7 +168,7 @@ export const buildSearchResponse = (
           ),
           amount: {
             amount: item?.price?.value,
-            currency: item?.price?.currency
+            currency: item?.price?.currency,
           },
           categories: provider?.categories
             ?.filter((category: any) =>
@@ -179,7 +179,7 @@ export const buildSearchResponse = (
             ?.map((category: any) => ({
               id: category?.id,
               code: category?.descriptor?.code,
-              name: category?.descriptor?.name
+              name: category?.descriptor?.name,
             })),
           scholarshipDetails: provider?.fulfillments
             ?.filter((fulfillment: any) =>
@@ -206,10 +206,10 @@ export const buildSearchResponse = (
                 ?.list?.map((li: any) => ({
                   code: li?.descriptor?.code,
                   name: li?.descriptor?.name,
-                  value: li?.value
-                }))
-            }))
-        }))
+                  value: li?.value,
+                })),
+            })),
+        })),
       })
     );
 
@@ -227,7 +227,7 @@ export const buildSavedAppliedCategoryResponse = (
 
   const scholarshipMap: any = {
     saved: {},
-    applied: {}
+    applied: {},
   };
 
   if (savedResponse?.data) {
@@ -250,14 +250,14 @@ export const buildSelectRequest = (input: any = {}) => {
     context: buildContext({
       ...(input?.context ?? {}),
       action: "select",
-      domain: "online-dispute-resolution:0.1.0"
+      domain: "online-dispute-resolution:0.1.0",
     }),
     message: {
       order: {
         provider: { id: input?.scholarshipProviderId },
-        items: [{ id: input?.scholarshipId }]
-      }
-    }
+        items: [{ id: input?.scholarshipId }],
+      },
+    },
   };
   return { payload };
 };
@@ -269,7 +269,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
   const context = {
     transactionId: response?.context?.transaction_id,
     bppId: response?.context?.bpp_id,
-    bppUri: response?.context?.bpp_uri
+    bppUri: response?.context?.bpp_uri,
   };
 
   const provider = response?.message?.order?.provider;
@@ -289,7 +289,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
         images: item?.descriptor?.images,
         amount: {
           amount: item?.price?.value,
-          currency: item?.price?.currency
+          currency: item?.price?.currency,
         },
         categories: item?.category_ids.map((id: any) => {
           const value = provider?.categories?.find(
@@ -306,10 +306,10 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
             (key: string) => {
               return {
                 formInputKey: key,
-                formInputValue: item?.xinput?.form?.data[key]
+                formInputValue: item?.xinput?.form?.data[key],
               };
             }
-          )
+          ),
         },
 
         academicQualifications: item?.tags
@@ -317,7 +317,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
           ?.list?.map((li: any) => ({
             code: li?.descriptor?.code,
             name: li?.descriptor?.name,
-            value: li?.value
+            value: li?.value,
           })),
 
         academicQualificationsCriteria: item?.tags
@@ -325,7 +325,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
           ?.list?.map((li: any) => ({
             code: li?.descriptor?.code,
             name: li?.descriptor?.name,
-            value: li?.value
+            value: li?.value,
           })),
 
         finStatusCriteria: item?.tags
@@ -333,7 +333,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
           ?.list?.map((li: any) => ({
             code: li?.descriptor?.code,
             name: li?.descriptor?.name,
-            value: li?.value
+            value: li?.value,
           })),
 
         benefits: item?.tags
@@ -341,7 +341,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
           ?.list?.map((li: any) => ({
             code: li?.descriptor?.code,
             name: li?.descriptor?.name,
-            value: li?.value
+            value: li?.value,
           })),
 
         scholarshipDetails: response?.message?.order?.fulfillments?.map(
@@ -357,20 +357,20 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
             )?.time?.timestamp,
             supportContact: {
               name: fulfillment?.customer?.person?.name,
-              ...(fulfillment?.contact ?? {})
+              ...(fulfillment?.contact ?? {}),
             },
             academicQualifications: fulfillment?.customer?.person?.tags
               ?.find((tag: any) => tag?.descriptor?.code == "edu_qual")
               ?.list?.map((li: any) => ({
                 code: li?.descriptor?.code,
                 name: li?.descriptor?.name,
-                value: li?.value
-              }))
+                value: li?.value,
+              })),
           })
-        )
+        ),
       })),
-      qoute: response?.message.order?.quote
-    }
+      qoute: response?.message.order?.quote,
+    },
   ];
 
   return { data: { context, scholarshipProviders } };
@@ -380,7 +380,7 @@ export const buildInitRequest = (input: any = {}) => {
   const context = buildContext({
     ...input?.context,
     domain: "online-dispute-resolution:0.1.0",
-    action: "init"
+    action: "init",
   });
   const { scholarshipProvider = {} } = input;
 
@@ -391,9 +391,9 @@ export const buildInitRequest = (input: any = {}) => {
         id: scholarshipProvider?.id,
         descriptor: {
           name: scholarshipProvider?.name,
-          short_desc: scholarshipProvider?.name
+          short_desc: scholarshipProvider?.name,
         },
-        rateable: false
+        rateable: false,
       },
       items: scholarshipProvider?.scholarships?.map((scholarship: any) => {
         const tags: any[] = [];
@@ -406,23 +406,23 @@ export const buildInitRequest = (input: any = {}) => {
             display: true,
             descriptor: {
               code: "edu_qual",
-              name: "Academic Eligibility"
+              name: "Academic Eligibility",
             },
             list: scholarship?.academicQualificationsCriteria?.map(
               (quali: any) => {
                 return {
                   descriptor: {
                     code: quali?.code,
-                    name: quali?.name
+                    name: quali?.name,
                   },
                   value:
                     quali?.code === "passing_year"
                       ? `${quali?.value}`
                       : quali?.value,
-                  display: true
+                  display: true,
                 };
               }
-            )
+            ),
           });
         }
 
@@ -434,18 +434,18 @@ export const buildInitRequest = (input: any = {}) => {
             display: true,
             descriptor: {
               code: "fin_status",
-              name: "Financial Status"
+              name: "Financial Status",
             },
             list: scholarship?.finStatusCriteria?.map((stats: any) => {
               return {
                 descriptor: {
                   code: stats?.code,
-                  name: stats?.name
+                  name: stats?.name,
                 },
                 value: stats?.value,
-                display: true
+                display: true,
               };
-            })
+            }),
           });
         }
 
@@ -454,18 +454,18 @@ export const buildInitRequest = (input: any = {}) => {
             display: true,
             descriptor: {
               code: "benefits",
-              name: "Benefits"
+              name: "Benefits",
             },
             list: scholarship?.benefits?.map((benef: any) => {
               return {
                 descriptor: {
                   code: benef?.code,
-                  name: benef?.name
+                  name: benef?.name,
                 },
                 value: benef?.value,
-                display: true
+                display: true,
               };
-            })
+            }),
           });
         }
 
@@ -473,11 +473,11 @@ export const buildInitRequest = (input: any = {}) => {
           id: scholarship?.id,
           descriptor: {
             name: scholarship?.name,
-            short_desc: scholarship?.name
+            short_desc: scholarship?.name,
           },
           price: {
             currency: scholarship?.amount?.currency,
-            value: scholarship?.amount?.amount?.toString()
+            value: scholarship?.amount?.amount?.toString(),
           },
           xinput: {
             required: true,
@@ -501,14 +501,14 @@ export const buildInitRequest = (input: any = {}) => {
                 )?.formInputValue,
                 docUrl: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "docUrl"
-                )?.formInputValue
+                )?.formInputValue,
               },
-              submission_id: scholarship?.additionalFormData?.submissionId
-            }
+              submission_id: scholarship?.additionalFormData?.submissionId,
+            },
           },
           tags: tags,
           rateable: false,
-          category_ids: [scholarship?.categoryId]
+          category_ids: [scholarship?.categoryId],
         };
       }),
       tags: scholarshipProvider?.tags,
@@ -522,32 +522,33 @@ export const buildInitRequest = (input: any = {}) => {
               person: {
                 gender: "Male",
                 name: scholarship?.scholarshipDetails?.scholarshipRequestor
-                  ?.name
-              }
+                  ?.name,
+              },
             },
             contact: {
               phone: scholarship?.scholarshipDetails?.supportContact?.phone,
-              email: scholarship?.scholarshipDetails?.supportContact?.email
+              email: scholarship?.scholarshipDetails?.supportContact?.email,
             },
             stops: [
               {
                 type: "APPLICATION-START",
                 time: {
                   timestamp:
-                    scholarship?.scholarshipDetails?.applicationStartDate
-                }
+                    scholarship?.scholarshipDetails?.applicationStartDate,
+                },
               },
               {
                 type: "APPLICATION-END",
                 time: {
-                  timestamp: scholarship?.scholarshipDetails?.applicationEndDate
-                }
-              }
-            ]
+                  timestamp:
+                    scholarship?.scholarshipDetails?.applicationEndDate,
+                },
+              },
+            ],
           };
         }
-      )
-    }
+      ),
+    },
   };
 
   return { payload: { context, message } };
@@ -557,7 +558,7 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
     return {
       context: {},
       scholarshipApplicationId: "",
-      scholarshipProvider: {}
+      scholarshipProvider: {},
     };
   }
 
@@ -566,7 +567,7 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
   const context = {
     transactionId: actualResponse?.context?.transaction_id,
     bppId: actualResponse?.context?.bpp_id,
-    bppUri: actualResponse?.context?.bpp_uri
+    bppUri: actualResponse?.context?.bpp_uri,
   };
 
   const { order = {} } = actualResponse?.message;
@@ -576,20 +577,27 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
   const scholarshipProvider: any = {
     id: order?.provider?.id,
     name: order?.provider?.descriptor?.name,
-    description: order?.provider?.descriptor?.short_desc,
-    address: order?.provider?.billing?.address,
+    longDesc: order?.provider?.descriptor?.long_desc,
+    shortDesc: order?.provider?.descriptor?.short_desc,
+    images: order?.provider?.descriptor?.images,
+    billingDetails: order?.billing,
     scholarships: order?.items.map((scholarship: any) => {
       return {
         id: scholarship?.id,
         name: scholarship?.descriptor?.name,
-        description: scholarship?.descriptor?.short_desc,
-        categoryId: scholarship?.category_ids?.length
-          ? scholarship?.category_ids[0]
-          : "",
+        longDesp: scholarship?.descriptor?.long_desc,
+        shortDesc: scholarship?.descriptor?.short_desc,
+        images: scholarship?.descriptor?.images,
         amount: {
           amount: parseInt(scholarship?.price?.value),
-          currency: scholarship?.price?.currency
+          currency: scholarship?.price?.currency,
         },
+        categories: scholarship?.category_ids.map((id: any) => {
+          const value = order?.categories.find(
+            (category: any) => category?.id === id
+          );
+          return value;
+        }),
         scholarshipDetails: {
           id: fulfillment?.id,
           type: fulfillment?.type,
@@ -602,14 +610,14 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
           supportContact: {
             name: fulfillment?.contact?.email,
             phone: fulfillment?.contact?.phone,
-            email: fulfillment?.contact?.email
+            email: fulfillment?.contact?.email,
           },
-          scholarshipRequestor: scholarship?.xinput?.form?.data
+          scholarshipRequestor: scholarship?.xinput?.form?.data,
         },
         additionalFormData: {
           formUrl: scholarship?.xinput?.form?.url,
           formMimeType: scholarship?.xinput?.form?.mime_type,
-          submissionId: scholarship?.xinput?.form?.submission_id
+          submissionId: scholarship?.xinput?.form?.submission_id,
         },
         academicQualificationsCriteria: scholarship?.tags
           ?.find((tag: any) => tag?.descriptor?.code === "edu_qual")
@@ -617,7 +625,7 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
             return {
               code: li?.descriptor?.code,
               name: li?.descriptor?.name,
-              value: li?.value
+              value: li?.value,
             };
           }),
 
@@ -627,7 +635,7 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
             return {
               code: li?.descriptor?.code,
               name: li?.descriptor?.name,
-              value: li?.value
+              value: li?.value,
             };
           }),
         benefits: scholarship?.tags
@@ -636,11 +644,11 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
             return {
               code: li?.descriptor?.code,
               name: li?.descriptor?.name,
-              value: li?.value
+              value: li?.value,
             };
-          })
+          }),
       };
-    })
+    }),
   };
 
   return { context, scholarshipProvider };
@@ -650,7 +658,7 @@ export const buildConfirmRequest = (input: any = {}) => {
   const context = buildContext({
     ...input?.context,
     domain: "online-dispute-resolution:0.1.0",
-    action: "confirm"
+    action: "confirm",
   });
   const { scholarshipProvider = {} } = input;
 
@@ -661,9 +669,9 @@ export const buildConfirmRequest = (input: any = {}) => {
         id: scholarshipProvider?.id,
         descriptor: {
           name: scholarshipProvider?.name,
-          short_desc: scholarshipProvider?.description
+          short_desc: scholarshipProvider?.description,
         },
-        rateable: false
+        rateable: false,
       },
       items: scholarshipProvider?.scholarships?.map((scholarship: any) => {
         const tags: any[] = [];
@@ -676,23 +684,23 @@ export const buildConfirmRequest = (input: any = {}) => {
             display: true,
             descriptor: {
               code: "edu_qual",
-              name: "Academic Eligibility"
+              name: "Academic Eligibility",
             },
             list: scholarship?.academicQualificationsCriteria?.map(
               (quali: any) => {
                 return {
                   descriptor: {
                     code: quali?.code,
-                    name: quali?.name
+                    name: quali?.name,
                   },
                   value:
                     quali?.code === "passing_year"
                       ? `${quali?.value}`
                       : quali?.value,
-                  display: quali?.code === "passing_year" ? false : true
+                  display: quali?.code === "passing_year" ? false : true,
                 };
               }
-            )
+            ),
           });
         }
 
@@ -704,18 +712,18 @@ export const buildConfirmRequest = (input: any = {}) => {
             display: true,
             descriptor: {
               code: "fin_status",
-              name: "Financial Status"
+              name: "Financial Status",
             },
             list: scholarship?.finStatusCriteria?.map((stats: any) => {
               return {
                 descriptor: {
                   code: stats?.code,
-                  name: stats?.name
+                  name: stats?.name,
                 },
                 value: stats?.value,
-                display: true
+                display: true,
               };
-            })
+            }),
           });
         }
 
@@ -724,18 +732,18 @@ export const buildConfirmRequest = (input: any = {}) => {
             display: true,
             descriptor: {
               code: "benefits",
-              name: "Benefits"
+              name: "Benefits",
             },
             list: scholarship?.benefits?.map((benef: any) => {
               return {
                 descriptor: {
                   code: benef?.code,
-                  name: benef?.name
+                  name: benef?.name,
                 },
                 value: benef?.value,
-                display: true
+                display: true,
               };
-            })
+            }),
           });
         }
 
@@ -743,11 +751,11 @@ export const buildConfirmRequest = (input: any = {}) => {
           id: scholarship?.id,
           descriptor: {
             name: scholarship?.name,
-            short_desc: scholarship?.description
+            short_desc: scholarship?.description,
           },
           price: {
             currency: scholarship?.amount?.currency,
-            value: `${scholarship?.amount?.amount}`
+            value: `${scholarship?.amount?.amount}`,
           },
           xinput: {
             required: true,
@@ -770,15 +778,15 @@ export const buildConfirmRequest = (input: any = {}) => {
                 )?.formInputValue,
                 docUrl: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "docUrl"
-                )?.formInputValue
+                )?.formInputValue,
               },
               mime_type: scholarship?.additionalFormData?.formMimeType,
-              submission_id: scholarship?.additionalFormData?.submissionId
-            }
+              submission_id: scholarship?.additionalFormData?.submissionId,
+            },
           },
           rateable: false,
           tags: tags,
-          category_ids: [scholarship?.categoryId]
+          category_ids: [scholarship?.categoryId],
         };
       }),
       fulfillments: scholarshipProvider?.scholarships?.map(
@@ -790,32 +798,33 @@ export const buildConfirmRequest = (input: any = {}) => {
             customer: {
               person: {
                 gender: "Male",
-                name: "Test"
-              }
+                name: "Test",
+              },
             },
             contact: {
               phone: scholarship?.scholarshipDetails?.supportContact?.phone,
-              email: scholarship?.scholarshipDetails?.supportContact?.email
+              email: scholarship?.scholarshipDetails?.supportContact?.email,
             },
             stops: [
               {
                 type: "APPLICATION-START",
                 time: {
                   timestamp:
-                    scholarship?.scholarshipDetails?.applicationStartDate
-                }
+                    scholarship?.scholarshipDetails?.applicationStartDate,
+                },
               },
               {
                 type: "APPLICATION-END",
                 time: {
-                  timestamp: scholarship?.scholarshipDetails?.applicationEndDate
-                }
-              }
-            ]
+                  timestamp:
+                    scholarship?.scholarshipDetails?.applicationEndDate,
+                },
+              },
+            ],
           };
         }
-      )
-    }
+      ),
+    },
   };
 
   return { payload: { context, message } };
@@ -826,7 +835,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
       context: {},
       scholarshipApplicationId: "",
       scholarshipApplicationStatus: "",
-      scholarshipProvider: {}
+      scholarshipProvider: {},
     };
   }
 
@@ -834,7 +843,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
   const context = {
     transactionId: actualResponse?.context?.transaction_id,
     bppId: actualResponse?.context?.bpp_id,
-    bppUri: actualResponse?.context?.bpp_uri
+    bppUri: actualResponse?.context?.bpp_uri,
   };
 
   const { order = {} } = actualResponse?.message;
@@ -857,7 +866,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
           : "",
         amount: {
           amount: parseInt(scholarship?.price?.value),
-          currency: scholarship?.price?.currency
+          currency: scholarship?.price?.currency,
         },
         scholarshipDetails: {
           id: fulfillment?.id,
@@ -871,9 +880,9 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
           supportContact: {
             name: fulfillment?.contact?.email,
             phone: fulfillment?.contact?.phone,
-            email: fulfillment?.contact?.email
+            email: fulfillment?.contact?.email,
           },
-          scholarshipRequestor: scholarship?.xinput?.form?.data
+          scholarshipRequestor: scholarship?.xinput?.form?.data,
         },
         additionalFormData: {
           formUrl: scholarship?.xinput?.form?.url,
@@ -886,10 +895,10 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
                 formInputValue:
                   key === "phone"
                     ? Number(scholarship?.xinput?.form?.data[key])
-                    : scholarship?.xinput?.form?.data[key]
+                    : scholarship?.xinput?.form?.data[key],
               };
             }
-          )
+          ),
         },
         academicQualificationsCriteria: scholarship?.tags
           ?.find((tag: any) => tag?.descriptor?.code === "edu_qual")
@@ -900,7 +909,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
               value:
                 li?.descriptor?.code === "passing_year"
                   ? Number(li?.value)
-                  : li?.value
+                  : li?.value,
             };
           }),
 
@@ -910,7 +919,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
             return {
               code: li?.descriptor?.code,
               name: li?.descriptor?.name,
-              value: li?.value
+              value: li?.value,
             };
           }),
         benefits: scholarship?.tags
@@ -919,11 +928,11 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
             return {
               code: li?.descriptor?.code,
               name: li?.descriptor?.name,
-              value: li?.value
+              value: li?.value,
             };
-          })
+          }),
       };
-    })
+    }),
   };
 
   return {
@@ -931,7 +940,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
     context,
     scholarshipApplicationId,
     scholarshipApplicationStatus,
-    scholarshipProvider
+    scholarshipProvider,
   };
 };
 
@@ -939,10 +948,10 @@ export const buildStatusRequest = (input: any = {}) => {
   const context = buildContext({
     ...input?.context,
     domain: "online-dispute-resolution:0.1.0",
-    action: "status"
+    action: "status",
   });
   const message = {
-    order_id: input?.scholarshipApplicationId
+    order_id: input?.scholarshipApplicationId,
   };
   return { payload: { context, message } };
 };
@@ -953,7 +962,7 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
   const context = {
     transactionId: response?.context?.transaction_id,
     bppId: response?.context?.bpp_id,
-    bppUri: response?.context?.bpp_uri
+    bppUri: response?.context?.bpp_uri,
   };
 
   const provider = response?.message?.order?.provider;
@@ -971,14 +980,14 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
         description: item?.descriptor?.long_desc,
         amount: {
           amount: item?.price?.value,
-          currency: item?.price?.currency
+          currency: item?.price?.currency,
         },
 
         scholarshipDetails: response?.message?.order?.fulfillments?.map(
           (fulfillment: any) => ({
             id: fulfillment?.id,
             type: fulfillment?.type,
-            scholarshipStatus: { code: response?.message?.order?.status }
+            scholarshipStatus: { code: response?.message?.order?.status },
           })
         )?.[0],
         applicationStartDate:
@@ -992,9 +1001,9 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
           "APPLICATION-END"
             ? response?.message?.order?.fulfillments[0]?.stops[1]?.time
                 .timestamp
-            : ""
-      }))
-    }
+            : "",
+      })),
+    },
   ];
 
   return { data: { context, scholarshipApplicationId, scholarshipProviders } };
