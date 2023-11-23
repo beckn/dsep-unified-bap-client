@@ -159,7 +159,9 @@ export const buildSearchResponse = (
         items: provider?.items?.map((item: any) => ({
           id: item?.id,
           name: item?.descriptor?.name,
-          description: item?.descriptor?.long_desc,
+          longDesc: item?.descriptor?.long_desc,
+          shortDesc: item?.descriptor?.short_desc,
+          images: item?.descriptor?.images,
           userSavedItem: !!savedItems?.find(
             (savedItem: any) => savedItem?.scholarship_id == item?.id
           ),
