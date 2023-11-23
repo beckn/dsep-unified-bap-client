@@ -211,7 +211,8 @@ export const buildSearchResponse = (
                   value: li?.value
                 }))
             }))
-        }))
+        })),
+        tags: provider?.tags
       })
     );
 
