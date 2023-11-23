@@ -120,9 +120,9 @@ export const buildOnSearchMergedResponse = async (
 ) => {
   let savedAppliedResult = response?.itemRes
     ? await buildSavedAppliedCategoryResponse(
-      response.itemRes[0],
-      response.itemRes[1]
-    )
+        response.itemRes[0],
+        response.itemRes[1]
+      )
     : null;
   return buildSearchResponse(
     response.searchRes,
@@ -159,7 +159,9 @@ export const buildSearchResponse = (
         items: provider?.items?.map((item: any) => ({
           id: item?.id,
           name: item?.descriptor?.name,
-          description: item?.descriptor?.long_desc,
+          longDesc: item?.descriptor?.long_desc,
+          shortDesc: item?.descriptor?.short_desc,
+          images: item?.descriptor?.images,
           userSavedItem: !!savedItems?.find(
             (savedItem: any) => savedItem?.scholarship_id == item?.id
           ),
@@ -273,7 +275,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
   };
 
   const provider = response?.message?.order?.provider;
-  console.log(response?.message.order?.quote)
+  console.log(response?.message.order?.quote);
   const scholarshipProviders = [
     {
       id: provider?.id,
@@ -491,10 +493,11 @@ export const buildInitRequest = (input: any = {}) => {
                 name: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "name"
                 )?.formInputValue,
-                phone: `${scholarship?.additionalFormData?.data.find(
-                  (elem: any) => elem?.formInputKey === "phone"
-                )?.formInputValue
-                  }`,
+                phone: `${
+                  scholarship?.additionalFormData?.data.find(
+                    (elem: any) => elem?.formInputKey === "phone"
+                  )?.formInputValue
+                }`,
                 address: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "address"
                 )?.formInputValue,
@@ -765,10 +768,11 @@ export const buildConfirmRequest = (input: any = {}) => {
                 name: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "name"
                 )?.formInputValue,
-                phone: `${scholarship?.additionalFormData?.data.find(
-                  (elem: any) => elem?.formInputKey === "phone"
-                )?.formInputValue
-                  }`,
+                phone: `${
+                  scholarship?.additionalFormData?.data.find(
+                    (elem: any) => elem?.formInputKey === "phone"
+                  )?.formInputValue
+                }`,
                 address: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "address"
                 )?.formInputValue,
@@ -990,15 +994,15 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
         )?.[0],
         applicationStartDate:
           response?.message?.order?.fulfillments[0]?.stops[0]?.type ===
-            "APPLICATION-START"
+          "APPLICATION-START"
             ? response?.message?.order?.fulfillments[0]?.stops[0]?.time
-              .timestamp
+                .timestamp
             : "",
         applicationEndDate:
           response?.message?.order?.fulfillments[0]?.stops[1]?.type ===
-            "APPLICATION-END"
+          "APPLICATION-END"
             ? response?.message?.order?.fulfillments[0]?.stops[1]?.time
-              .timestamp
+                .timestamp
             : ""
       }))
     }
