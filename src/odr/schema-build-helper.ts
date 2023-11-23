@@ -273,6 +273,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
   };
 
   const provider = response?.message?.order?.provider;
+  console.log(response?.message.order?.quote)
   const scholarshipProviders = [
     {
       id: provider?.id,
@@ -370,7 +371,8 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
               }))
           })
         )
-      }))
+      })),
+      qoute: response?.message.order?.quote
     }
   ];
 
