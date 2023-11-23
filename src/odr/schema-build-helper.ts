@@ -148,8 +148,8 @@ export const buildSearchResponse = (
       bpp_uri: bppUri
     }: any = bpp?.context ?? {};
     const context = { transactionId, messageId, bppId, bppUri };
-    const itemProviderPlatform = bpp?.message?.catalog?.descriptor?.name;
-    const itemProviders = bpp?.message?.provider.map(
+    const scholarshipProviderPlatform = bpp?.message?.catalog?.descriptor?.name;
+    const scholarshipProviders = bpp?.message?.provider.map(
       (provider: any) => ({
         id: provider?.id,
         name: provider?.descriptor?.name,
@@ -213,7 +213,7 @@ export const buildSearchResponse = (
       })
     );
 
-    return { context, itemProviders, itemProviderPlatform };
+    return { context, scholarshipProviders, scholarshipProviderPlatform };
   });
   return { data: finaldata };
 };
