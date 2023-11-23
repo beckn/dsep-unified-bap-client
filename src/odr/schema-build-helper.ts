@@ -148,12 +148,15 @@ export const buildSearchResponse = (
       bpp_uri: bppUri
     }: any = bpp?.context ?? {};
     const context = { transactionId, messageId, bppId, bppUri };
-    const scholarshipProviderPlatform = bpp?.message?.catalog?.descriptor?.name;
-    const scholarshipProviders = bpp?.message?.catalog?.providers?.map(
+    const itemProviderPlatform = bpp?.message?.catalog?.descriptor?.name;
+    const itemProviders = bpp?.message?.provider.map(
       (provider: any) => ({
         id: provider?.id,
         name: provider?.descriptor?.name,
-        scholarships: provider?.items?.map((item: any) => ({
+        longDesc: provider?.descriptor?.long_desc,
+        shortDesc: provider?.descriptor?.short_desc,
+        images: provider?.descriptor?.images,
+        items: provider?.items?.map((item: any) => ({
           id: item?.id,
           name: item?.descriptor?.name,
           description: item?.descriptor?.long_desc,
@@ -210,7 +213,7 @@ export const buildSearchResponse = (
       })
     );
 
-    return { context, scholarshipProviders, scholarshipProviderPlatform };
+    return { context, itemProviders, itemProviderPlatform };
   });
   return { data: finaldata };
 };
@@ -270,7 +273,6 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
   };
 
   const provider = response?.message?.order?.provider;
-
   const scholarshipProviders = [
     {
       id: provider?.id,
