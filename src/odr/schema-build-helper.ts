@@ -120,9 +120,9 @@ export const buildOnSearchMergedResponse = async (
 ) => {
   let savedAppliedResult = response?.itemRes
     ? await buildSavedAppliedCategoryResponse(
-        response.itemRes[0],
-        response.itemRes[1]
-      )
+      response.itemRes[0],
+      response.itemRes[1]
+    )
     : null;
   return buildSearchResponse(
     response.searchRes,
@@ -275,7 +275,6 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
   };
 
   const provider = response?.message?.order?.provider;
-  console.log(response?.message.order?.quote);
   const scholarshipProviders = [
     {
       id: provider?.id,
@@ -490,11 +489,10 @@ export const buildInitRequest = (input: any = {}) => {
                 name: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "name"
                 )?.formInputValue,
-                phone: `${
-                  scholarship?.additionalFormData?.data.find(
-                    (elem: any) => elem?.formInputKey === "phone"
-                  )?.formInputValue
-                }`,
+                phone: `${scholarship?.additionalFormData?.data.find(
+                  (elem: any) => elem?.formInputKey === "phone"
+                )?.formInputValue
+                  }`,
                 address: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "address"
                 )?.formInputValue,
@@ -576,13 +574,13 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
   const fulfillment = order?.fulfillments[0];
   // const scholarshipApplicationId = order?.id;
 
+  const billingDetails = order?.billing
   const scholarshipProvider: any = {
     id: order?.provider?.id,
     name: order?.provider?.descriptor?.name,
     longDesc: order?.provider?.descriptor?.long_desc,
     shortDesc: order?.provider?.descriptor?.short_desc,
     images: order?.provider?.descriptor?.images,
-    billingDetails: order?.billing,
     scholarships: order?.items.map((scholarship: any) => {
       return {
         id: scholarship?.id,
@@ -653,7 +651,7 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
     }),
   };
 
-  return { context, scholarshipProvider };
+  return { context, billingDetails, scholarshipProvider };
 };
 
 export const buildConfirmRequest = (input: any = {}) => {
@@ -767,11 +765,10 @@ export const buildConfirmRequest = (input: any = {}) => {
                 name: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "name"
                 )?.formInputValue,
-                phone: `${
-                  scholarship?.additionalFormData?.data.find(
-                    (elem: any) => elem?.formInputKey === "phone"
-                  )?.formInputValue
-                }`,
+                phone: `${scholarship?.additionalFormData?.data.find(
+                  (elem: any) => elem?.formInputKey === "phone"
+                )?.formInputValue
+                  }`,
                 address: scholarship?.additionalFormData?.data.find(
                   (elem: any) => elem?.formInputKey === "address"
                 )?.formInputValue,
@@ -841,7 +838,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
     };
   }
 
-  const actualResponse = response?.responses[0];
+  const actualResponse = response.responses[0];
   const context = {
     transactionId: actualResponse?.context?.transaction_id,
     bppId: actualResponse?.context?.bpp_id,
@@ -853,19 +850,25 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
   const provider = order?.provider;
   const scholarshipApplicationId = order?.id;
   const scholarshipApplicationStatus = order?.status;
+  const created_at = order?.created_at
+  const billingDetails = order?.billing
 
   const scholarshipProvider: any = {
     id: provider?.id,
     name: provider?.descriptor?.name,
-    description: provider?.descriptor?.short_desc,
+    longDesc: provider?.descriptor?.long_desc,
+    shortDesc: provider?.descriptor?.short_desc,
     scholarships: order?.items.map((scholarship: any) => {
       return {
         id: scholarship?.id,
         name: scholarship?.descriptor?.name,
         description: scholarship?.descriptor?.short_desc,
-        categoryId: scholarship?.category_ids?.length
-          ? scholarship?.category_ids[0]
-          : "",
+        categories: scholarship?.category_ids.map((id: any) => {
+          const value = provider?.categories.find(
+            (category: any) => category?.id === id
+          );
+          return value;
+        }),
         amount: {
           amount: parseInt(scholarship?.price?.value),
           currency: scholarship?.price?.currency,
@@ -873,16 +876,15 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
         scholarshipDetails: {
           id: fulfillment?.id,
           type: fulfillment?.type,
-          applicationStartDate: fulfillment?.stops?.find(
-            (stp: any) => stp?.type === "APPLICATION-START"
-          )?.time?.timestamp,
-          applicationEndDate: fulfillment?.stops?.find(
-            (stp: any) => stp?.type === "APPLICATION-END"
-          )?.time?.timestamp,
-          supportContact: {
-            name: fulfillment?.contact?.email,
-            phone: fulfillment?.contact?.phone,
-            email: fulfillment?.contact?.email,
+          agentDetails: {
+            name: fulfillment?.agent?.person?.name,
+            id: fulfillment?.agent?.person?.id,
+            contactDetails: fulfillment?.agent?.contact
+          },
+          customerDetails: {
+            name: fulfillment?.customer?.person?.name,
+            id: fulfillment?.customer?.person?.id,
+            contactDetails: fulfillment?.customer?.contact
           },
           scholarshipRequestor: scholarship?.xinput?.form?.data,
         },
@@ -890,17 +892,6 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
           formUrl: scholarship?.xinput?.form?.url,
           formMimeType: scholarship?.xinput?.form?.mime_type,
           submissionId: scholarship?.xinput?.form?.submission_id,
-          data: Object.keys(scholarship?.xinput?.form?.data).map(
-            (key: string) => {
-              return {
-                formInputKey: key,
-                formInputValue:
-                  key === "phone"
-                    ? Number(scholarship?.xinput?.form?.data[key])
-                    : scholarship?.xinput?.form?.data[key],
-              };
-            }
-          ),
         },
         academicQualificationsCriteria: scholarship?.tags
           ?.find((tag: any) => tag?.descriptor?.code === "edu_qual")
@@ -938,9 +929,10 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
   };
 
   return {
-    original: actualResponse,
     context,
     scholarshipApplicationId,
+    created_at,
+    billingDetails,
     scholarshipApplicationStatus,
     scholarshipProvider,
   };
@@ -994,15 +986,15 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
         )?.[0],
         applicationStartDate:
           response?.message?.order?.fulfillments[0]?.stops[0]?.type ===
-          "APPLICATION-START"
+            "APPLICATION-START"
             ? response?.message?.order?.fulfillments[0]?.stops[0]?.time
-                .timestamp
+              .timestamp
             : "",
         applicationEndDate:
           response?.message?.order?.fulfillments[0]?.stops[1]?.type ===
-          "APPLICATION-END"
+            "APPLICATION-END"
             ? response?.message?.order?.fulfillments[0]?.stops[1]?.time
-                .timestamp
+              .timestamp
             : "",
       })),
     },
