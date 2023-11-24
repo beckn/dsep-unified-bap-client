@@ -21,4 +21,5 @@ export interface IScholarshipNetworkContext {
   bpp_uri?: string;
   message_id: string;
   timestamp: string;
+  key?: string;
 }
