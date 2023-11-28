@@ -965,6 +965,8 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
   const scholarshipApplicationStatus = response?.message?.order?.status;
   const scholarshipApplicationId = response?.message?.order?.id;
   const caseDocs = response?.message?.order?.docs || [];
+  const createdAt = response?.message?.order?.created_at || "";
+  const billingDetails = response?.message?.order?.billing || {};
   const scholarshipProviders = [
     {
       id: provider?.id,
@@ -982,11 +984,17 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
           amount: item?.price?.value,
           currency: item?.price?.currency
         },
-
+        categories: item?.category_ids.map((id: any) => {
+          const value = response?.message?.order?.categories.find(
+            (category: any) => category?.id === id
+          );
+          return value;
+        }),
         scholarshipDetails: response?.message?.order?.fulfillments?.map(
           (fulfillment: any) => ({
             id: fulfillment?.id,
             type: fulfillment?.type,
+
             state: {
               name: fulfillment?.state?.descriptor?.name,
               code: fulfillment?.state?.descriptor?.code,
@@ -1017,7 +1025,9 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
       scholarshipApplicationId,
       scholarshipProviders,
       caseDocs,
-      scholarshipApplicationStatus
+      scholarshipApplicationStatus,
+      createdAt,
+      billingDetails
     }
   };
 };
