@@ -854,6 +854,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
   const scholarshipApplicationStatus = order?.status;
   const created_at = order?.created_at;
   const billingDetails = order?.billing;
+  const caseDocs = order?.docs || [];
 
   const scholarshipProvider: any = {
     id: provider?.id,
@@ -936,7 +937,8 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
     created_at,
     billingDetails,
     scholarshipApplicationStatus,
-    scholarshipProvider
+    scholarshipProvider,
+    caseDocs
   };
 };
 
@@ -962,7 +964,7 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
   const provider = response?.message?.order?.provider;
   const scholarshipApplicationStatus = response?.message?.order?.status;
   const scholarshipApplicationId = response?.message?.order?.id;
-
+  const caseDocs = response?.message?.order?.docs || [];
   const scholarshipProviders = [
     {
       id: provider?.id,
@@ -1014,6 +1016,7 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
       context,
       scholarshipApplicationId,
       scholarshipProviders,
+      caseDocs,
       scholarshipApplicationStatus
     }
   };
