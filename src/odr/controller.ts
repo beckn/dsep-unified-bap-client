@@ -1,11 +1,12 @@
 import express, { Request, Response } from "express";
 import {
   searchScholarshipService,
-  statusScholarshipService,
+  statusODRService,
   confirmScholarshipService,
   initScholarshipService,
   selectScholarshipService
 } from "./services";
+import requestIp from "request-ip";
 export const search = async (req: Request, res: Response) => {
   const { data, status = 200 } = await searchScholarshipService(req.body);
   return res.status(status).json(data);
@@ -26,6 +27,10 @@ export const confirm = async (req: Request, res: Response) => {
   return res.status(status).json(data);
 };
 export const status = async (req: Request, res: Response) => {
-  const { data, status = 200 } = await statusScholarshipService(req.body);
+  console.log(
+    "Status Controller Called from =====>======>",
+    requestIp.getClientIp(req)
+  );
+  const { data, status = 200 } = await statusODRService(req.body);
   return res.status(status).json(data);
 };
