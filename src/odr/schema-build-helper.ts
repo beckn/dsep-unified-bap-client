@@ -965,7 +965,7 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
   const scholarshipApplicationStatus = response?.message?.order?.status;
   const scholarshipApplicationId = response?.message?.order?.id;
   const caseDocs = response?.message?.order?.docs || [];
-  const createdAt = response?.message?.order?.created_at || "";
+  const createdAt = new Date().toISOString() || "";
   const billingDetails = response?.message?.order?.billing || {};
   const scholarshipProviders = [
     {
@@ -994,7 +994,7 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
           (fulfillment: any) => ({
             id: fulfillment?.id,
             type: fulfillment?.type,
-
+            agentDetails: fulfillment?.agent,
             state: {
               name: fulfillment?.state?.descriptor?.name,
               code: fulfillment?.state?.descriptor?.code,
