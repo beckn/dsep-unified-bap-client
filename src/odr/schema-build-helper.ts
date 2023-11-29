@@ -998,7 +998,7 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
             state: {
               name: fulfillment?.state?.descriptor?.name,
               code: fulfillment?.state?.descriptor?.code,
-              updatedAt: fulfillment?.state?.updated_at
+              updatedAt: new Date().toISOString()
             },
             scholarshipStatus: { code: response?.message?.order?.status }
           })
