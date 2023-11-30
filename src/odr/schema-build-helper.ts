@@ -871,7 +871,7 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
         name: scholarship?.descriptor?.name,
         description: scholarship?.descriptor?.short_desc,
         categories: scholarship?.category_ids?.map((id: any) => {
-          const value = provider?.categories.find(
+          const value = provider?.categories?.find(
             (category: any) => category?.id === id
           );
           return value;
@@ -989,7 +989,7 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
           currency: item?.price?.currency
         },
         categories: item?.category_ids?.map((id: any) => {
-          const value = response?.message?.order?.categories.find(
+          const value = response?.message?.order?.categories?.find(
             (category: any) => category?.id === id
           );
           return value;
