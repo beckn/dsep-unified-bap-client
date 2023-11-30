@@ -141,7 +141,11 @@ export const buildSearchResponse = (
 ) => {
   const bpps = response?.data?.responses;
   if (!bpps) return { status: 200 };
-
+  console.log(
+    bpps.map((bpp: any) => {
+      return bpp?.context?.bpp_id;
+    })
+  );
   const finaldata = bpps.map((bpp: any, i: number) => {
     const {
       transaction_id: transactionId,
@@ -294,7 +298,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
           amount: item?.price?.value,
           currency: item?.price?.currency
         },
-        categories: item?.category_ids.map((id: any) => {
+        categories: item?.category_ids?.map((id: any) => {
           const value = provider?.categories?.find(
             (category: any) => category?.id === id
           );
@@ -305,7 +309,7 @@ export const buildSelectResponse = (res: any = {}, input: any = {}) => {
           formUrl: item?.xinput?.form?.url,
           formMimeType: item?.xinput?.form?.mime_type,
           submissionId: item?.xinput?.form?.submission_id,
-          data: Object.keys(item?.xinput?.form?.data ?? {}).map(
+          data: Object.keys(item?.xinput?.form?.data ?? {})?.map(
             (key: string) => {
               return {
                 formInputKey: key,
@@ -583,7 +587,7 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
     longDesc: order?.provider?.descriptor?.long_desc,
     shortDesc: order?.provider?.descriptor?.short_desc,
     images: order?.provider?.descriptor?.images,
-    scholarships: order?.items.map((scholarship: any) => {
+    scholarships: order?.items?.map((scholarship: any) => {
       return {
         id: scholarship?.id,
         name: scholarship?.descriptor?.name,
@@ -594,7 +598,7 @@ export const buildInitResponse = (response: any = {}, input: any = {}) => {
           amount: parseInt(scholarship?.price?.value),
           currency: scholarship?.price?.currency
         },
-        categories: scholarship?.category_ids.map((id: any) => {
+        categories: scholarship?.category_ids?.map((id: any) => {
           const value = order?.categories.find(
             (category: any) => category?.id === id
           );
@@ -861,12 +865,12 @@ export const buildConfirmResponse = (response: any = {}, input: any = {}) => {
     name: provider?.descriptor?.name,
     longDesc: provider?.descriptor?.long_desc,
     shortDesc: provider?.descriptor?.short_desc,
-    scholarships: order?.items.map((scholarship: any) => {
+    scholarships: order?.items?.map((scholarship: any) => {
       return {
         id: scholarship?.id,
         name: scholarship?.descriptor?.name,
         description: scholarship?.descriptor?.short_desc,
-        categories: scholarship?.category_ids.map((id: any) => {
+        categories: scholarship?.category_ids?.map((id: any) => {
           const value = provider?.categories.find(
             (category: any) => category?.id === id
           );
@@ -984,7 +988,7 @@ export const buildStatusResponse = (res: any = {}, input: any = {}) => {
           amount: item?.price?.value,
           currency: item?.price?.currency
         },
-        categories: item?.category_ids.map((id: any) => {
+        categories: item?.category_ids?.map((id: any) => {
           const value = response?.message?.order?.categories.find(
             (category: any) => category?.id === id
           );
