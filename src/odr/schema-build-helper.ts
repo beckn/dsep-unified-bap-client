@@ -57,7 +57,7 @@ export const buildSearchRequest = (input: any = {}) => {
   if (input?.category) {
     message.intent.category = {
       descriptor: {
-        name: input?.category?.name
+        code: input?.category?.name
       }
     };
   }
