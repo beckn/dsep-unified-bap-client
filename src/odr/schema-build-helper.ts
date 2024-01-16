@@ -146,7 +146,7 @@ export const buildSearchResponse = (
       return bpp?.context?.bpp_id;
     })
   );
-  const finaldata = bpps.map((bpp: any, i: number) => {
+  const finaldata = bpps?.map((bpp: any, i: number) => {
     const {
       transaction_id: transactionId,
       message_id: messageId,
@@ -155,7 +155,7 @@ export const buildSearchResponse = (
     }: any = bpp?.context ?? {};
     const context = { transactionId, messageId, bppId, bppUri };
     const scholarshipProviderPlatform = bpp?.message?.catalog?.descriptor?.name;
-    const scholarshipProviders = bpp?.message?.providers.map(
+    const scholarshipProviders = bpp?.message?.providers?.map(
       (provider: any) => ({
         id: provider?.id,
         name: provider?.descriptor?.name,

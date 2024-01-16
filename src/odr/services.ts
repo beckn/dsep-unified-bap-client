@@ -59,6 +59,7 @@ export const searchScholarshipService = async (body: any): Promise<any> => {
         .then((res) => res)
         .catch((err) => null);
       const res = { searchRes, itemRes };
+      console.log("Response====>\n\n", JSON.stringify(searchRes.data), "\n\n");
       searchResponse = buildOnSearchMergedResponse(res, body);
     } else {
       searchResponse = buildSearchResponse(
@@ -69,6 +70,7 @@ export const searchScholarshipService = async (body: any): Promise<any> => {
 
     return searchResponse;
   } catch (error) {
+    console.log(error);
     return { error: error, errorOccured: true };
   }
 };
@@ -98,6 +100,7 @@ export const selectScholarshipService = async (body: any): Promise<any> => {
 
     return selectResponse;
   } catch (error) {
+    console.log(error);
     return { error: error, errorOccured: true };
   }
 };
@@ -114,6 +117,7 @@ export const initScholarshipService = async (body: any): Promise<any> => {
       let res = await axios.post(`${gatewayUrl}/init`, initRequest.payload, {
         headers
       });
+      console.log(JSON.stringify(res?.data));
       initResponse = buildInitResponse(res?.data, body);
     } else {
       initResponse = buildInitResponse(initScholarshipResponse, body);
@@ -121,6 +125,7 @@ export const initScholarshipService = async (body: any): Promise<any> => {
 
     return { data: initResponse };
   } catch (error: any) {
+    console.log(error);
     return { error: error, errorOccured: true };
   }
 };
@@ -146,6 +151,7 @@ export const confirmScholarshipService = async (body: any): Promise<any> => {
 
     return { data: confirmResponse };
   } catch (error: any) {
+    console.log(error);
     return { error: error, errorOccured: true };
   }
 };
@@ -176,6 +182,7 @@ export const statusODRService = async (body: any): Promise<any> => {
 
     return statusResponse;
   } catch (error) {
+    console.log(error);
     return { error: error, errorOccured: true };
   }
 };
